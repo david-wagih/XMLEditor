@@ -1,112 +1,13 @@
 ﻿<Window
+    x:Class="XMLEditor.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:XMLEditor"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
     Width="800"
-    Height="800"
+    Height="450"
     mc:Ignorable="d">
-    <Grid Width="500" Height="700">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
-            <RowDefinition Height="100" />
-            <RowDefinition Height="100" />
-            <RowDefinition Height="400" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250" />
-            <ColumnDefinition Width="250" />
-        </Grid.ColumnDefinitions>
-
-        <StackPanel
-            Grid.Row="0"
-            Grid.Column="0"
-            HorizontalAlignment="Center">
-            <Label FontWeight="Bold">Choose your XML file</Label>
-            <Button
-                Width="100px"
-                HorizontalAlignment="Center"
-                Cursor="Hand">
-                Browse
-            </Button>
-        </StackPanel>
-        <StackPanel
-            Grid.Row="1"
-            Grid.Column="0"
-            HorizontalAlignment="Center">
-            <Label FontWeight="Bold">Detect and Correct Errors</Label>
-            <Button
-                Width="100"
-                HorizontalAlignment="Center"
-                Cursor="Hand">
-                Fix
-            </Button>
-        </StackPanel>
-        <StackPanel
-            Grid.Row="2"
-            Grid.Column="0"
-            HorizontalAlignment="Center">
-            <Label FontWeight="Bold">Prettier Format</Label>
-            <Button
-                Width="100"
-                HorizontalAlignment="Center"
-                Cursor="Hand">
-                Format
-            </Button>
-        </StackPanel>
-        <StackPanel
-            Grid.Row="0"
-            Grid.Column="1"
-            HorizontalAlignment="Center">
-            <Label FontWeight="Bold">Convert into JSON</Label>
-            <Button
-                Width="100"
-                HorizontalAlignment="Center"
-                Cursor="Hand">
-                JSON
-            </Button>
-        </StackPanel>
-        <StackPanel
-            Grid.Row="1"
-            Grid.Column="1"
-            HorizontalAlignment="Center">
-            <Label FontWeight="Bold">Make file Size Smaller</Label>
-            <Button
-                Width="100px"
-                HorizontalAlignment="Center"
-                Cursor="Hand">
-                Compress
-            </Button>
-        </StackPanel>
-        <StackPanel
-            Grid.Row="2"
-            Grid.Column="1"
-            HorizontalAlignment="Center">
-            <Label FontWeight="Bold">Export it to new file</Label>
-            <Button
-                Width="100px"
-                HorizontalAlignment="Center"
-                Cursor="Hand">
-                Save
-            </Button>
-        </StackPanel>
-        <StackPanel
-            Grid.Row="3"
-            Grid.Column="0"
-            HorizontalAlignment="Center">
-            <Label FontWeight="Bold">Input File</Label>
-            <ScrollViewer>
-                <TextBox Width="200" Height="350" />
-            </ScrollViewer>
-        </StackPanel>
-        <StackPanel
-            Grid.Row="3"
-            Grid.Column="1"
-            HorizontalAlignment="Center">
-            <Label FontWeight="Bold">Output File</Label>
-            <ScrollViewer>
-                <TextBox Width="200" Height="350" />
-            </ScrollViewer>
-        </StackPanel>
-    </Grid>
+    <Grid />
 </Window>
