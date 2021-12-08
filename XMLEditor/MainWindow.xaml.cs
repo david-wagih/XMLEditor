@@ -25,6 +25,7 @@ namespace XMLEditor
         public MainWindow()
         {
             InitializeComponent();
+            outputField.Text = "hi i am a test string";
         }
 
         private void Browse_Click(object sender, RoutedEventArgs e)
@@ -51,15 +52,24 @@ namespace XMLEditor
             // we then want to change the content of the input GUI element into the fileContent...
 
             inputField.Text = fileContent;
-
-
         }
+
+
 
         // want to be able to save the file as xml file or JSON file
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Title = "Save XML & JSON Files";
+            saveFileDialog1.DefaultExt = "xml";
+            saveFileDialog1.Filter = "XML files (*.xml)|*.xml|JSON Files (*.json*)|*.json*";
+            saveFileDialog1.ShowDialog(this);
+            using (Stream s = File.Open(saveFileDialog1.FileName, FileMode.CreateNew))
+            using (StreamWriter sw = new StreamWriter(s))
+            {
+                sw.Write(outputField.Text);
+            }
         }
     }
 }

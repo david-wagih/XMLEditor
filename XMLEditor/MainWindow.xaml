@@ -112,7 +112,10 @@
             HorizontalAlignment="Center">
             <Label FontWeight="Bold">Output File</Label>
             <ScrollViewer>
-                <TextBox Width="200" Height="350" />
+                <TextBox
+                    x:Name="outputField"
+                    Width="200"
+                    Height="350" />
             </ScrollViewer>
         </StackPanel>
     </Grid>
