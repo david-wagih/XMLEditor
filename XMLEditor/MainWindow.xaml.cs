@@ -24,5 +24,10 @@ namespace XMLEditor
         {
             InitializeComponent();
         }
+
+        private void Browse_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("hello dazy");
+        }
     }
 }
