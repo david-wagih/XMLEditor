@@ -13,6 +13,7 @@
             <RowDefinition Height="100" />
             <RowDefinition Height="100" />
             <RowDefinition Height="400" />
+            <RowDefinition Height="400" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" />
@@ -88,6 +89,7 @@
             <Button
                 Width="100px"
                 HorizontalAlignment="Center"
+                Click="Save_Click"
                 Cursor="Hand">
                 Save
             </Button>
@@ -97,8 +99,11 @@
             Grid.Column="0"
             HorizontalAlignment="Center">
             <Label FontWeight="Bold">Input File</Label>
-            <ScrollViewer>
-                <TextBox Width="200" Height="350" />
+            <ScrollViewer CanContentScroll="True">
+                <TextBox
+                    x:Name="inputField"
+                    Width="200"
+                    Height="350" />
             </ScrollViewer>
         </StackPanel>
         <StackPanel
