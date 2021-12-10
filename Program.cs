@@ -96,7 +96,7 @@ namespace Compression
             sb.Length = dest;
         }
     }
-    class program {
+    class Test {
         public static void Main()
         {
 
