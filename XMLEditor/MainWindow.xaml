@@ -41,6 +41,7 @@
             <Button
                 Width="100"
                 HorizontalAlignment="Center"
+                Click="Fix_Click"
                 Cursor="Hand">
                 Fix
             </Button>
@@ -53,6 +54,7 @@
             <Button
                 Width="100"
                 HorizontalAlignment="Center"
+                Click="Format_Click"
                 Cursor="Hand">
                 Format
             </Button>
@@ -65,6 +67,7 @@
             <Button
                 Width="100"
                 HorizontalAlignment="Center"
+                Click="JSON_Click"
                 Cursor="Hand">
                 JSON
             </Button>
@@ -77,6 +80,7 @@
             <Button
                 Width="100px"
                 HorizontalAlignment="Center"
+                Click="Compress_Click"
                 Cursor="Hand">
                 Compress
             </Button>

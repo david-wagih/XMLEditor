@@ -55,7 +55,6 @@ namespace XMLEditor
         }
 
 
-
         // want to be able to save the file as xml file or JSON file
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -70,6 +69,31 @@ namespace XMLEditor
             {
                 sw.Write(outputField.Text);
             }
+        }
+
+        // this button is to detect and fix the errors in the XML file
+
+        private void Fix_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // this button is to format and add indentation for the XML file
+        private void Format_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // this button is for converting the XML into JSON
+        private void JSON_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // this buttin is to Compress the XML file size
+        private void Compress_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
