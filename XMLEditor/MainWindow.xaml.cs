@@ -22,17 +22,18 @@ namespace XMLEditor
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
             outputField.Text = "hi i am a test string";
         }
 
+
         private void Browse_Click(object sender, RoutedEventArgs e)
         {
 
             // open the dialogue to choose your XML File
-
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
                 Title = "Browse XML File",
@@ -56,7 +57,6 @@ namespace XMLEditor
 
 
         // want to be able to save the file as xml file or JSON file
-
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -72,7 +72,6 @@ namespace XMLEditor
         }
 
         // this button is to detect and fix the errors in the XML file
-
         private void Fix_Click(object sender, RoutedEventArgs e)
         {
 
