@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Collections;
 using System.Diagnostics;
-namespace ConsoleApp1
+namespace XMLEditor
 {
     
 class HuffmanNode : IComparable<HuffmanNode>
