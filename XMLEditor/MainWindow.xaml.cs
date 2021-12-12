@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using System.IO;
+using XML_Editor;
+
 namespace XMLEditor
 {
     /// <summary>
@@ -23,14 +25,20 @@ namespace XMLEditor
     public partial class MainWindow : Window
     {
 
+            string path = null;
+
+
         public MainWindow()
         {
+
             InitializeComponent();
-            outputField.Text = "hi i am a test string";
+
+
+
         }
 
 
-        private void Browse_Click(object sender, RoutedEventArgs e)
+        public void Browse_Click(object sender, RoutedEventArgs e)
         {
 
             // open the dialogue to choose your XML File
@@ -45,7 +53,7 @@ namespace XMLEditor
             };
             openFileDialog1.ShowDialog();
             string filePath = openFileDialog1.FileName; // getting the full file path of the selected XML file
-
+            path = filePath;
             // load the XML file content from the file the user selected, we will need the file path of the selected one.
 
             string fileContent = File.ReadAllText(filePath); // fileContent contains the content of our selected file finally..
@@ -80,7 +88,14 @@ namespace XMLEditor
         // this button is to format and add indentation for the XML file
         private void Format_Click(object sender, RoutedEventArgs e)
         {
-
+            FormatXml xmlfile = new FormatXml(path, false);
+            Tree xml_tree = new Tree();
+            using (StreamReader reader2 = new StreamReader(path))
+            {
+                xml_tree.insertFile(reader2);
+                reader2.Close();
+            }
+            xmlfile.format(xml_tree.getTreeRoot());
         }
 
         // this button is for converting the XML into JSON

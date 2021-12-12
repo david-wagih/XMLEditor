@@ -370,7 +370,7 @@ namespace XML_Editor
             //}
         }
     }
-    public class DS_project
+/*    public class DS_project
     {
         static int Main(String[] args)
         {
@@ -393,5 +393,5 @@ namespace XML_Editor
             xmlfile.format(xml_tree.getTreeRoot());
             return 0;
         }
-    }
+    }*/
 }
