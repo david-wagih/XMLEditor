@@ -96,6 +96,8 @@ namespace XMLEditor
             // here i am testing the minifying function
             string Compressed = Minifying.CompactWhitespaces(inputField.Text);
             outputField.Text = Compressed;
+
+            // here want to test the encoding and decoding of the file
         }
     }
 }
