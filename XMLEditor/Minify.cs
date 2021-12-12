@@ -97,7 +97,7 @@ namespace XMLEditor
         }
     }
     //For testing
-    class Test {
+    class main {
         public static void Main()
         {
 
