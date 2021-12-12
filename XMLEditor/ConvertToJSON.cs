@@ -17,8 +17,8 @@ namespace XMLEditor
             this.first = first;
         }
 
-        //Write: writes the passed string in the file, if add is true it adds new line after writing
-        public void Write(string s, bool add)
+        //write: writes the passed string in the file, if add is true it adds new line after writing
+        public void write(string s, bool add)
         {
             if (first == 0)
             {
@@ -69,15 +69,15 @@ namespace XMLEditor
             //adding identation
             for (int i = 0; i < parent.getDepth(); i++)
             {
-                Write(indentation, false);
+                write(indentation, false);
                 syntax.Push(indentation);
             }
             //if node is the root
             if (node.getDepth() == 0)
             {
-                Write(openCurlyBraces, true);
+                write(openCurlyBraces, true);
                 syntax.Push(openCurlyBraces);
-                Write('"' + node.getTagName() + '"' + ':' + space, true);
+                write('"' + node.getTagName() + '"' + ':' + space, true);
 
             }
             else
@@ -86,27 +86,27 @@ namespace XMLEditor
                 {
                     if (node == parent.getChildren()[0])
                     {
-                        Write(openCurlyBraces, true);
+                        write(openCurlyBraces, true);
                         syntax.Push(openCurlyBraces);
                         if (children.Count == 0)
                         {
-                            Write('"' + node.getTagName() + '"' + ":" + space + openSquareBrackets + '"' + node.getTagValue() + '"', true);
+                            write('"' + node.getTagName() + '"' + ":" + space + openSquareBrackets + '"' + node.getTagValue() + '"', true);
                         }
                         else
                         {
-                            Write('"' + node.getTagName() + '"' + ":" + space + openSquareBrackets, true);
+                            write('"' + node.getTagName() + '"' + ":" + space + openSquareBrackets, true);
                         }
                         syntax.Push(openSquareBrackets);
 
                     }
                     else if (node != parent.getChildren()[0] && children.Count > 0)
                     {
-                        Write(',' + openCurlyBraces, true);
+                        write(',' + openCurlyBraces, true);
                         syntax.Push(openCurlyBraces);
                     }
                     else if (node != parent.getChildren()[0] && children.Count == 0)
                     {
-                        Write(',' + '"' + node.getTagValue() + '"', true);
+                        write(',' + '"' + node.getTagValue() + '"', true);
                     }
                 }
                 else if (children.Count() == 0)
@@ -116,18 +116,18 @@ namespace XMLEditor
                     {
                         if (node == parent.getChildren()[0])
                         {
-                            Write(openCurlyBraces + '"' + node.getTagName() + '"' + ':' + space + '"' + node.getTagValue() + '"', true);
+                            write(openCurlyBraces + '"' + node.getTagName() + '"' + ':' + space + '"' + node.getTagValue() + '"', true);
                         }
                         else if (node != parent.getChildren()[0])
                         {
-                            Write(',' + openCurlyBraces + '"' + node.getTagName() + '"' + ':' + space + '"' + node.getTagValue() + '"', true);
+                            write(',' + openCurlyBraces + '"' + node.getTagName() + '"' + ':' + space + '"' + node.getTagValue() + '"', true);
                         }
 
                     }
                     else
                     {
                         //if node has no children and no siblings
-                        Write(openCurlyBraces + '"' + node.getTagName() + '"' + ':' + space + '"' + node.getTagValue() + '"', true);
+                        write(openCurlyBraces + '"' + node.getTagName() + '"' + ':' + space + '"' + node.getTagValue() + '"', true);
                     }
                     syntax.Push(openCurlyBraces);
                 }
@@ -138,18 +138,18 @@ namespace XMLEditor
                     {
                         if (node == parent.getChildren()[0])
                         {
-                            Write(openCurlyBraces + '"' + node.getTagName() + '"' + ':' + space, true);
+                            write(openCurlyBraces + '"' + node.getTagName() + '"' + ':' + space, true);
                         }
                         else if (node != parent.getChildren()[0])
                         {
-                            Write(',' + openCurlyBraces + '"' + node.getTagName() + '"' + ':' + space, true);
+                            write(',' + openCurlyBraces + '"' + node.getTagName() + '"' + ':' + space, true);
                         }
 
                     }
                     else
                     {
                         //if node has children and no siblings
-                        Write(openCurlyBraces + '"' + node.getTagName() + '"' + ':' + space, true);
+                        write(openCurlyBraces + '"' + node.getTagName() + '"' + ':' + space, true);
                     }
                     syntax.Push(openCurlyBraces);
                 }
@@ -166,16 +166,16 @@ namespace XMLEditor
             {
                 if (syntax.Peek() == openCurlyBraces)
                 {
-                    Write(closedCurlyBraces, true);
+                    write(closedCurlyBraces, true);
                     syntax.Pop();
                 }
                 else if (syntax.Peek() == openSquareBrackets)
                 {
-                    Write(closedSquareBrackets, true);
+                    write(closedSquareBrackets, true);
                 }
                 else
                 {
-                    Write(syntax.Pop(), false);
+                    write(syntax.Pop(), false);
                 }
             }
 
