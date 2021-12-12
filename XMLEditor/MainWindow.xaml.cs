@@ -93,6 +93,7 @@ namespace XMLEditor
         // this buttin is to Compress the XML file size
         private void Compress_Click(object sender, RoutedEventArgs e)
         {
+            // here i am testing the minifying function
             string Compressed = Minifying.CompactWhitespaces(inputField.Text);
             outputField.Text = Compressed;
         }
