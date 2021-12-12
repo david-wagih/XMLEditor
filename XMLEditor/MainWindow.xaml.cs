@@ -25,7 +25,7 @@ namespace XMLEditor
     public partial class MainWindow : Window
     {
 
-            string path = null;
+         string path = null;
 
 
         public MainWindow()
