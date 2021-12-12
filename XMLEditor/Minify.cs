@@ -96,19 +96,4 @@ namespace XMLEditor
             sb.Length = dest;
         }
     }
-    //For testing
-    class main {
-        public static void Main()
-        {
-
-            string text = File.ReadAllText(@"C:\Users\Mayar El-Mallah\Downloads\sample.xml");
-            Console.WriteLine(text);
-            Console.WriteLine();
-            string Compressed=Minifying.CompactWhitespaces(text);
-            Console.WriteLine(Compressed);
-
-       
-
-        }
-    }
 }

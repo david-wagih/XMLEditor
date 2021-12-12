@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +8,8 @@ using System.Collections;
 using System.Diagnostics;
 namespace XMLEditor
 {
-    
-class HuffmanNode : IComparable<HuffmanNode>
+
+    class HuffmanNode : IComparable<HuffmanNode>
     {
         public string symbol;   // For the character of char value. Public because Process class use it.
         public int frequency;          // Number of the count on file, string, text.
@@ -70,7 +70,7 @@ class HuffmanNode : IComparable<HuffmanNode>
             frequency++;
         }
     }
-  
+
     class ProcessMethods
     {
         //  Creates a Node List that reading the characters on the file.
@@ -86,7 +86,7 @@ class HuffmanNode : IComparable<HuffmanNode>
 
 
 
-    
+
             try
             {
                 // Creating a new unique node that reading from the file.
@@ -258,3 +258,4 @@ class HuffmanNode : IComparable<HuffmanNode>
         }
     }
 }
+*/
