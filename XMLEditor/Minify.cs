@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace Compression
+namespace XMLEditor
 {
     public class Minifying
     {
