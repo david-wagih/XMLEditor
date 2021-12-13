@@ -110,135 +110,55 @@ namespace XMLEditor
         {
             return this.root.getChildren()[0];
         }
-
         private void insertFileAUX(StreamReader reader, Node parent)
         {
             char letter;
-            string data;
-            string name;
+
+
 
             while (reader.Peek() >= 0)
             {
+                string name = null;
+                string data = null;
                 //read one char skipping spaces & new lines
                 letter = skipSpaces(reader);
-
-                //check if we are reading an opening tag
-                if (letter == '<' && reader.Peek() != (int)('/'))
+                if (letter == '<' && reader.Peek() != '/')
                 {
                     letter = skipSpaces(reader);
-
-                    if (Char.IsLetter(letter))
+                    while (Char.IsLetter(letter))
                     {
-                        //add new child to current parent and update child depth
-                        Node child = new Node(null, null, null, false, parent.getDepth() + 1);
-                        parent.getChildren().Add(child);
-
-                        //save the tagName in name
-                        name = letter.ToString();
-                        letter = (char)reader.Read();
-
-                        while (letter != '>')
-                        {
-                            name += letter.ToString();
-                            letter = (char)reader.Read();
-
-                            //save attributes
-                            if (letter == ' ')
-                            {
-                                child.setTagName(name);
-                                data = ((char)reader.Read()).ToString();
-                                letter = (char)reader.Read();
-                                while (letter != '>')
-                                {
-                                    //check for self closing tag
-                                    if (letter == '/' && reader.Peek() == (int)('>'))
-                                    {
-                                        child.setIsClosingTag(true);
-                                        child.setTagAttributes(data);
-                                        letter = (char)reader.Read();
-                                        continue;
-                                    }
-
-                                    data += letter.ToString();
-
-                                    letter = (char)reader.Read();
-                                }
-
-                                child.setTagAttributes(data);
-                            }
-
-                            //check for self closing tag
-                            if (letter == '/' && reader.Peek() == (int)('>'))
-                            {
-                                child.setIsClosingTag(true);
-                                child.setTagName(name);
-                                letter = (char)reader.Read();
-                                continue;
-                            }
-                        }
-
-                        //****save the tagname in node****
-                        child.setTagName(name);
-
-                        //skip spaces & new lines without consuming the letter
-                        while (reader.Peek() == (int)('\n') || reader.Peek() == (int)('\t') || reader.Peek() == (int)(' '))
-                        {
-                            letter = (char)reader.Read();
-                        }
-
-                        //save the data inside the tag if there is data
-                        if (reader.Peek() != (int)('<'))
-                        {
-                            letter = (char)reader.Read();
-                            data = letter.ToString();
-
-                            //save the data until reaching the closing tag
-                            while (reader.Peek() != (int)('<'))
-                            {
-                                letter = (char)reader.Read();
-                                data += letter.ToString();
-                            }
-
-                            //remove any /n from the end of the data before saving it 
-                            int index = data.Length;
-                            while (data[index - 1] == '\n' || data[index - 1] == ' ' || data[index - 1] == '\t')
-                            {
-                                data = data.Substring(0, index - 1);
-                                index = data.Length;
-                            }
-                            //****save the data in node****
-                            child.setTagValue(data);
-
-                        }
-
-                        else if (child.getIsClosingTag() == false)
-                        {
-                            //this child also has children
-                            insertFileAUX(reader, child);
-                        }
-
-                    }
-                }
-
-                //check if we are reading a closing tag for that parent
-                else if (letter == '<' && reader.Peek() == (int)('/'))
-                {
-                    letter = (char)reader.Read();
-                    letter = (char)reader.Read();
-                    name = letter.ToString();
-                    letter = (char)reader.Read();
-                    while (letter != '>')
-                    {
-                        name += letter.ToString();
+                        name += letter;
                         letter = (char)reader.Read();
                     }
+                    Node child = new Node(name, null, null, true, parent.getDepth() + 1);
+                    parent.getChildren().Add(child);
+                    if (letter == '>' && Char.IsLetterOrDigit((char)reader.Peek()))
+                    {
 
-                    if (name == parent.getTagName())
-                        return;
+
+                        letter = (char)reader.Read();
+                        while (letter != '<')
+                        {
+                            data += letter;
+                            letter = (char)reader.Read();
+                        }
+                        child.setTagValue(data);
+
+
+
+
+                    }
+                    else
+                    {
+                        insertFileAUX(reader, child);
+                    }
+                    Console.WriteLine("depth: " + child.getDepth() + " tag name: " + child.getTagName() + " value: " + child.getTagValue());
+
                 }
+
+
             }
         }
-
         public void insertFile(StreamReader reader)
         {
             Node parent = new Node();
