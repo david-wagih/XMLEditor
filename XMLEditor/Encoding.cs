@@ -138,20 +138,19 @@ namespace XMLEditor
 
 
 
-
+        public string content = "";
         // Printing all Tree! Recursive method.
         public void PrintTree(int level, HuffmanNode node)
         {
+            
             if (node == null)
                 return;
             for (int i = 0; i < level; i++)
             {
-                Console.Write("\t");
+                content += "\t";
             }
-            Console.Write("[" + node.symbol + "]");
-            Test.setColor();
-            Console.WriteLine("(" + node.code + ")");
-            Test.setColorDefault();
+            content += "[" + node.symbol + "]";
+            content += "(" + node.code + ")";
             PrintTree(level + 1, node.rightTree);
             PrintTree(level + 1, node.leftTree);
         }
@@ -180,7 +179,7 @@ namespace XMLEditor
         }
 
     }
-    class Test
+/*    class Test
     {
         // Test class provide us to test our program.
         static void Main(string[] args)
@@ -239,11 +238,11 @@ namespace XMLEditor
 
                 }
             }
-        }
+        }*/
 
 
         // These are methods that to change the color of the console secren. These are public because they must be accessible from ProcessMethods class. Instant method.
-        public static void setColor()
+/*        public static void setColor()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
         }
@@ -251,6 +250,6 @@ namespace XMLEditor
         public static void setColorDefault()
         {
             Console.ForegroundColor = ConsoleColor.White;
-        }
+        }*/
     }
-}
+

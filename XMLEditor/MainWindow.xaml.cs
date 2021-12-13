@@ -109,13 +109,16 @@ namespace XMLEditor
             pMethods.PrintInformation(nodeList); // to be adjusted
             pMethods.getTreeFromList(nodeList);
             pMethods.setCodeToTheTree("", nodeList[0]);
-            pMethods.PrintTree(0, nodeList[0]); // to be adjusted
+            pMethods.PrintTree(0, nodeList[0]); // Most imp one to print the compressed file
             pMethods.PrintfLeafAndCodes(nodeList[0]); // to be adjusted
+            outputField.Text = pMethods.content;
+            
         }
 
 
         private void Decompress_Click(object sender, RoutedEventArgs e)
         {
+            // we want to test decompressing the file
 
         }
 
