@@ -94,5 +94,15 @@ namespace XMLEditor
         {
 
         }
+
+        private void Decompress_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Minify_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

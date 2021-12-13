@@ -4,20 +4,24 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="800"
-    Height="800"
+    Width="1000"
+    Height="1000"
     mc:Ignorable="d">
-    <Grid Width="500" Height="700">
+    <Grid
+        Width="800"
+        Height="900"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
-            <RowDefinition Height="100" />
-            <RowDefinition Height="100" />
-            <RowDefinition Height="400" />
-            <RowDefinition Height="400" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="600" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250" />
-            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="400" />
+            <ColumnDefinition Width="400" />
         </Grid.ColumnDefinitions>
 
         <StackPanel
@@ -89,6 +93,32 @@
             Grid.Row="2"
             Grid.Column="1"
             HorizontalAlignment="Center">
+            <Label FontWeight="Bold">make file normal again</Label>
+            <Button
+                Width="100px"
+                HorizontalAlignment="Center"
+                Click="Decompress_Click"
+                Cursor="Hand">
+                Decompress
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="3"
+            Grid.Column="0"
+            HorizontalAlignment="Center">
+            <Label FontWeight="Bold">Minify your file</Label>
+            <Button
+                Width="100px"
+                HorizontalAlignment="Center"
+                Click="Minify_Click"
+                Cursor="Hand">
+                Minify
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="3"
+            Grid.Column="1"
+            HorizontalAlignment="Center">
             <Label FontWeight="Bold">Export it to new file</Label>
             <Button
                 Width="100px"
@@ -99,28 +129,29 @@
             </Button>
         </StackPanel>
         <StackPanel
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="0"
             HorizontalAlignment="Center">
             <Label FontWeight="Bold">Input File</Label>
-            <ScrollViewer CanContentScroll="True">
-                <TextBox
-                    x:Name="inputField"
-                    Width="200"
-                    Height="350" />
-            </ScrollViewer>
+            <TextBox
+                x:Name="inputField"
+                Width="320"
+                Height="572"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto" />
         </StackPanel>
         <StackPanel
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="1"
             HorizontalAlignment="Center">
             <Label FontWeight="Bold">Output File</Label>
-            <ScrollViewer>
-                <TextBox
-                    x:Name="outputField"
-                    Width="200"
-                    Height="350" />
-            </ScrollViewer>
+            <TextBox
+                x:Name="outputField"
+                Width="320"
+                Height="572"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto" />
+
         </StackPanel>
     </Grid>
 </Window>
