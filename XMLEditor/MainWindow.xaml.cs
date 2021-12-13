@@ -23,6 +23,7 @@ namespace XMLEditor
     /// </summary>
     public partial class MainWindow : Window
     {
+        string path = null;
 
         public MainWindow()
         {
@@ -46,7 +47,7 @@ namespace XMLEditor
             };
             openFileDialog1.ShowDialog();
             string filePath = openFileDialog1.FileName; // getting the full file path of the selected XML file
-
+            path = filePath;
             // load the XML file content from the file the user selected, we will need the file path of the selected one.
 
             string fileContent = File.ReadAllText(filePath); // fileContent contains the content of our selected file finally..
@@ -90,14 +91,34 @@ namespace XMLEditor
 
         }
 
+        // this button is to minify and remove the spaces from the XML file
+        private void Minify_Click(object sender, RoutedEventArgs e)
+        {
+            string Minified = Minifying.CompactWhitespaces(inputField.Text);
+            outputField.Text = Minified;
+        }
+
+
         // this buttin is to Compress the XML file size
         private void Compress_Click(object sender, RoutedEventArgs e)
         {
-            // here i am testing the minifying function
-            string Compressed = Minifying.CompactWhitespaces(inputField.Text);
-            outputField.Text = Compressed;
-
             // here want to test the encoding and decoding of the file
+            List<HuffmanNode> nodeList; // store nodes on List.
+            ProcessMethods pMethods = new ProcessMethods();
+            nodeList = pMethods.getListFromFile(path);
+            pMethods.PrintInformation(nodeList); // to be adjusted
+            pMethods.getTreeFromList(nodeList);
+            pMethods.setCodeToTheTree("", nodeList[0]);
+            pMethods.PrintTree(0, nodeList[0]); // to be adjusted
+            pMethods.PrintfLeafAndCodes(nodeList[0]); // to be adjusted
         }
+
+
+        private void Decompress_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
     }
 }
