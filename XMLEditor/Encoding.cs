@@ -74,24 +74,20 @@ namespace XMLEditor
     class ProcessMethods
     {
         //  Creates a Node List that reading the characters on the file.
-        public List<HuffmanNode> getListFromFile()
+        public List<HuffmanNode> getListFromFile(string path)
         {
             List<HuffmanNode> nodeList = new List<HuffmanNode>();  // Node List.
 
-            Test.setColor();
+/*            Test.setColor();
             Console.WriteLine("Example file: \"a.txt\"\n");
             Test.setColorDefault();
             Console.Write("Enter the path of the file: ");
-            String filename = Console.ReadLine();
-
-
-
-
+            String filename = Console.ReadLine();*/
             try
             {
                 // Creating a new unique node that reading from the file.
                 // If it is the same character, increase the frequency of the value. It is possiple with "frequencyIncreas()" method.
-                FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read);
+                FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read);
                 for (int i = 0; i < stream.Length; i++)
                 {
                     string read = Convert.ToChar(stream.ReadByte()).ToString();
@@ -198,7 +194,7 @@ namespace XMLEditor
             while (true)
             {
                 Console.Clear();
-                nodeList = pMethods.getListFromFile();
+                nodeList = pMethods.getListFromFile(path);
                 Console.Clear();
                 if (nodeList == null)
                 {
