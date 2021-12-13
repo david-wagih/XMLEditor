@@ -16,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using System.IO;
+using System.Collections;
+
 namespace XMLEditor
 {
     /// <summary>
@@ -24,6 +26,11 @@ namespace XMLEditor
     public partial class MainWindow : Window
     {
         string path = null;
+        string content = null;
+        string outputEncoding = null;
+        BitArray inputDecoding = null;
+
+        HuffmanTree huffmanTree = new HuffmanTree();
 
         public MainWindow()
         {
@@ -51,7 +58,7 @@ namespace XMLEditor
             // load the XML file content from the file the user selected, we will need the file path of the selected one.
 
             string fileContent = File.ReadAllText(filePath); // fileContent contains the content of our selected file finally..
-
+            content = fileContent;
             // we then want to change the content of the input GUI element into the fileContent...
 
             inputField.Text = fileContent;
@@ -61,16 +68,32 @@ namespace XMLEditor
         // want to be able to save the file as xml file or JSON file
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Title = "Save XML & JSON Files";
             saveFileDialog1.DefaultExt = "xml";
             saveFileDialog1.Filter = "XML files (*.xml)|*.xml|JSON Files (*.json*)|*.json*";
             saveFileDialog1.ShowDialog(this);
             using (Stream s = File.Open(saveFileDialog1.FileName, FileMode.CreateNew))
-            using (StreamWriter sw = new StreamWriter(s))
-            {
-                sw.Write(outputField.Text);
-            }
+
+                if(inputDecoding != null)
+                {
+                   
+                    byte[] bytes = new byte[inputDecoding.Length / 8 + (inputDecoding.Length % 8 == 0 ? 0 : 1)];
+                    inputDecoding.CopyTo(bytes, 0);
+                    using (BinaryWriter bw = new BinaryWriter(s))
+                    {
+                        bw.Write(bytes);
+                    }
+                }
+                else
+                {
+                    using (StreamWriter sw = new StreamWriter(s))
+                    {
+                        sw.Write(outputField.Text);
+                    }
+                }
+
         }
 
         // this button is to detect and fix the errors in the XML file
@@ -102,24 +125,34 @@ namespace XMLEditor
         // this buttin is to Compress the XML file size
         private void Compress_Click(object sender, RoutedEventArgs e)
         {
-            // here want to test the encoding and decoding of the file
-            List<HuffmanNode> nodeList; // store nodes on List.
-            ProcessMethods pMethods = new ProcessMethods();
-            nodeList = pMethods.getListFromFile(path);
-            pMethods.PrintInformation(nodeList); // to be adjusted
-            pMethods.getTreeFromList(nodeList);
-            pMethods.setCodeToTheTree("", nodeList[0]);
-            pMethods.PrintTree(0, nodeList[0]); // Most imp one to print the compressed file
-            pMethods.PrintfLeafAndCodes(nodeList[0]); // to be adjusted
-            outputField.Text = pMethods.content;
+
+            huffmanTree.Build(content);
+            // Encode
+            BitArray encoded = huffmanTree.Encode(content);
+            foreach (bool bit in encoded)
+            {
+                if (bit)
+                {
+                    outputEncoding += "1" + "";
+                }
+                else
+                {
+                    outputEncoding += "0" + "";
+                }
+            }
             
+            outputField.Text = outputEncoding;
+            inputDecoding = encoded;
+
         }
 
 
         private void Decompress_Click(object sender, RoutedEventArgs e)
         {
             // we want to test decompressing the file
-
+            string decoded = huffmanTree.Decode(inputDecoding);
+            outputField.Text = decoded;
+            inputDecoding = null;
         }
 
 
