@@ -141,6 +141,11 @@ namespace XMLEditor
                     character = (char)reader.Read();
                     while (character != '>')
                     {
+                        if (character == '\n' || character == '\r' || character == '\t')
+                        {
+                            character = (char)reader.Read();
+                            continue;
+                        }
                         name += character;
                         character = (char)reader.Read();
                     }
@@ -159,6 +164,11 @@ namespace XMLEditor
                         character = (char)reader.Read();
                         while (character != '<')
                         {
+                            if (character == '\n' || character == '\r' || character == '\t')
+                            {
+                                character = (char)reader.Read();
+                                continue;
+                            }
                             value += character;
                             character = (char)reader.Read();
 
