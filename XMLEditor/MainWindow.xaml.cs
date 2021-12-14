@@ -85,6 +85,10 @@ namespace XMLEditor
 
         }
 
+
+
+
+
         // this button is to format and add indentation for the XML file
         private void Format_Click(object sender, RoutedEventArgs e)
         {
@@ -98,6 +102,12 @@ namespace XMLEditor
             xmlfile.format(xml_tree.getTreeRoot());
         }
 
+
+
+
+
+
+
         // this button is for converting the XML into JSON
         private void JSON_Click(object sender, RoutedEventArgs e)
         {
@@ -106,6 +116,16 @@ namespace XMLEditor
 
         // this buttin is to Compress the XML file size
         private void Compress_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Decompress_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Minify_Click(object sender, RoutedEventArgs e)
         {
 
         }
