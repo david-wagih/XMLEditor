@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace XMLEditor
 {
+
+
     class Node
     {
         private string tagName;
@@ -13,15 +15,17 @@ namespace XMLEditor
         private string tagAttributes;
         private int depth;
         private bool isClosingTag;
+        private Node parent;
         private List<Node> children = new List<Node>();
 
-        public Node(string tagName, string tagValue, string tagAttributes, bool isClosingTag, int depth)
+        public Node(string tagName, string tagValue, string tagAttributes, bool isClosingTag, int depth, Node parent)
         {
             this.tagName = tagName;
             this.tagValue = tagValue;
             this.depth = depth;
             this.tagAttributes = tagAttributes;
             this.isClosingTag = isClosingTag;
+            this.parent = parent;
         }
 
         public Node()
@@ -31,6 +35,17 @@ namespace XMLEditor
             tagAttributes = null;
             isClosingTag = false;
             depth = 0;
+            parent = null;
+        }
+
+
+        public Node getParent()
+        {
+            return parent;
+        }
+        public void setParent(Node parent)
+        {
+            this.parent = parent;
         }
 
         public List<Node> getChildren()
@@ -98,10 +113,11 @@ namespace XMLEditor
             root = null;
         }
 
+
         private char skipSpaces(StreamReader reader)
         {
             char letter = (char)reader.Read();
-            while (letter == '\n' || letter == '\t') letter = (char)reader.Read();
+            while (letter == '\n' || letter == '\t' || letter == ' ') letter = (char)reader.Read();
             return letter;
         }
 
@@ -109,61 +125,68 @@ namespace XMLEditor
         {
             return this.root.getChildren()[0];
         }
-        private void insertFileAUX(StreamReader reader, Node parent)
+        private void insertFileAUX_New(StreamReader reader, Node node)
         {
-            char letter;
-
-
-
+            char character;
             while (reader.Peek() >= 0)
             {
-                string name = null;
-                string data = null;
-                //read one char skipping spaces & new lines
-                letter = skipSpaces(reader);
-                if (letter == '<' && reader.Peek() != '/')
+                character = (char)reader.Read();
+                if (character == '<' && reader.Peek() != '/')
                 {
-                    letter = skipSpaces(reader);
-                    while (Char.IsLetter(letter))
+                    string name = null;
+                    string value = null;
+                    Node child = new Node(null, null, null, false, node.getDepth() + 1, node);
+                    node.getChildren().Add(child);
+                    character = (char)reader.Read();
+                    while (character != '>')
                     {
-                        name += letter;
-                        letter = (char)reader.Read();
+                        name += character;
+                        character = (char)reader.Read();
                     }
-                    Node child = new Node(name, null, null, true, parent.getDepth() + 1);
-                    parent.getChildren().Add(child);
-                    if (letter == '>' && Char.IsLetterOrDigit((char)reader.Peek()))
+                    child.setTagName(name);
+                    // character = (char)reader.Read();
+                    while (reader.Peek() == '\n' || reader.Peek() == '\t' || reader.Peek() == '\r' || reader.Peek() == ' ')
                     {
-
-
-                        letter = (char)reader.Read();
-                        while (letter != '<')
-                        {
-                            data += letter;
-                            letter = (char)reader.Read();
-                        }
-                        child.setTagValue(data);
-
-
-
-
+                        character = (char)reader.Read();
+                    }
+                    if (reader.Peek() == '<')
+                    {
+                        insertFileAUX_New(reader, child);
                     }
                     else
                     {
-                        insertFileAUX(reader, child);
-                    }
-                    Console.WriteLine("depth: " + child.getDepth() + " tag name: " + child.getTagName() + " value: " + child.getTagValue());
+                        character = (char)reader.Read();
+                        while (character != '<')
+                        {
+                            value += character;
+                            character = (char)reader.Read();
 
+                        }
+                        child.setTagValue(value);
+                    }
+                    //used for debuging
+                    /* Console.WriteLine("depth: " + child.getDepth() + " tag name: " + child.getTagName() + " value: " + child.getTagValue() );
+                     if(node.getParent() != null)
+                     {
+                         Console.WriteLine(" parent name:" + child.getParent().getTagName());
+                     }*/
+                }
+                else if (character == '<' && reader.Peek() == '/')
+                {
+                    insertFileAUX_New(reader, node.getParent());
                 }
 
 
             }
         }
+
+
         public void insertFile(StreamReader reader)
         {
             Node parent = new Node();
             root = parent;
             parent.setDepth(-1);
-            insertFileAUX(reader, parent);
+            insertFileAUX_New(reader, parent);
         }
     }
 }
