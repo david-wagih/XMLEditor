@@ -100,6 +100,12 @@ namespace XMLEditor
                 reader2.Close();
             }
             xmlfile.format(xml_tree.getTreeRoot());
+            using(StreamReader reader3 = new StreamReader(xmlfile.XmlFileName))
+            {
+                var filecontent = reader3.ReadToEnd();
+                outputField.Text = filecontent;
+                reader3.Close();
+            }
         }
 
 
