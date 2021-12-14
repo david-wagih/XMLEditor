@@ -26,7 +26,7 @@ namespace XMLEditor
         public MainWindow()
         {
             InitializeComponent();
-            outputField.Text = "hi i am a test string";
+            
         }
 
 
