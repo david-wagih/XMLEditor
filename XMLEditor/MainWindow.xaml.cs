@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using System.IO;
+using System.Collections;
+
 namespace XMLEditor
 {
     /// <summary>
@@ -22,6 +24,12 @@ namespace XMLEditor
     /// </summary>
     public partial class MainWindow : Window
     {
+        string path = null;
+        string content = null;
+        string outputEncoding = null;
+        BitArray inputDecoding = null;
+        HuffmanTree huffmanTree = new HuffmanTree();
+
 
         public MainWindow()
         {
@@ -74,13 +82,27 @@ namespace XMLEditor
         // this button is to detect and fix the errors in the XML file
         private void Fix_Click(object sender, RoutedEventArgs e)
         {
-
+            Fix fix = new Fix();
+            outputField.Text = string.Join("\n", fix.validator(path));
         }
 
         // this button is to format and add indentation for the XML file
         private void Format_Click(object sender, RoutedEventArgs e)
         {
-
+            FormatXml xmlfile = new FormatXml(path, false);
+            Tree xml_tree = new Tree();
+            using (StreamReader reader2 = new StreamReader(path))
+            {
+                xml_tree.insertFile(reader2);
+                reader2.Close();
+            }
+            xmlfile.format(xml_tree.getTreeRoot());
+            using (StreamReader reader3 = new StreamReader(xmlfile.XmlFileName))
+            {
+                var filecontent = reader3.ReadToEnd();
+                outputField.Text = filecontent;
+                reader3.Close();
+            }
         }
 
         // this button is for converting the XML into JSON
@@ -89,20 +111,45 @@ namespace XMLEditor
 
         }
 
-        // this buttin is to Compress the XML file size
+        // this button is to minify and remove the spaces from the XML file
+        private void Minify_Click(object sender, RoutedEventArgs e)
+        {
+            string Minified = Minifying.CompactWhitespaces(inputField.Text);
+            outputField.Text = Minified;
+        }
+
+
+        // this button is to Compress the XML file size
         private void Compress_Click(object sender, RoutedEventArgs e)
         {
 
+            huffmanTree.Build(content);
+            // Encode
+            BitArray encoded = huffmanTree.Encode(content);
+            foreach (bool bit in encoded)
+            {
+                if (bit)
+                {
+                    outputEncoding += "1" + "";
+                }
+                else
+                {
+                    outputEncoding += "0" + "";
+                }
+            }
+
+            outputField.Text = outputEncoding;
+            inputDecoding = encoded;
+
         }
 
+        // this button is to Decompress the XML file Again.
         private void Decompress_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void Minify_Click(object sender, RoutedEventArgs e)
-        {
-
+            // we want to test decompressing the file
+            string decoded = huffmanTree.Decode(inputDecoding);
+            outputField.Text = decoded;
+            inputDecoding = null;
         }
     }
 }
