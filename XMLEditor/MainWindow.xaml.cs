@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Xml;
 using System.IO;
 using XML_Editor;
+using System.Collections;
 
 namespace XMLEditor
 {
@@ -25,6 +26,11 @@ namespace XMLEditor
     public partial class MainWindow : Window
     {
         string path = null;
+        string Content = null;
+        string outputEncoding = null;
+        BitArray inputDecoding = null;
+        HuffmanTree huffmanTree = new HuffmanTree();
+
 
 
         public MainWindow()
@@ -56,7 +62,7 @@ namespace XMLEditor
             // load the XML file content from the file the user selected, we will need the file path of the selected one.
 
             string fileContent = File.ReadAllText(filePath); // fileContent contains the content of our selected file finally..
-
+            Content = fileContent;
             // we then want to change the content of the input GUI element into the fileContent...
 
             inputField.Text = fileContent;
@@ -112,28 +118,55 @@ namespace XMLEditor
 
 
 
-
-
         // this button is for converting the XML into JSON
         private void JSON_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
+
+
+
         // this buttin is to Compress the XML file size
         private void Compress_Click(object sender, RoutedEventArgs e)
         {
+            // Build the Huffman tree
+            huffmanTree.Build(Content);
 
+            // Encode
+            BitArray encoded = huffmanTree.Encode(Content);
+            
+            foreach (bool bit in encoded)
+            {
+                if (bit)
+                {
+                    outputEncoding += "1" + "";
+                }
+                else
+                {
+                    outputEncoding += "0" + "";
+                }
+            }
+            outputField.Text = outputEncoding;
+            inputDecoding = encoded;
         }
+
+
 
         private void Decompress_Click(object sender, RoutedEventArgs e)
         {
+            string decoded = huffmanTree.Decode(inputDecoding);
 
+            outputField.Text = decoded;
         }
+
+
 
         private void Minify_Click(object sender, RoutedEventArgs e)
         {
 
         }
+
+
     }
 }
