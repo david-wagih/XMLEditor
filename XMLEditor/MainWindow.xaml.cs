@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using System.IO;
-using System.Collections;
+using XML_Editor;
 
 namespace XMLEditor
 {
@@ -25,20 +25,19 @@ namespace XMLEditor
     public partial class MainWindow : Window
     {
         string path = null;
-        string content = null;
-        string outputEncoding = null;
-        BitArray inputDecoding = null;
-        HuffmanTree huffmanTree = new HuffmanTree();
 
 
         public MainWindow()
         {
+
             InitializeComponent();
-            
+
+
+
         }
 
 
-        private void Browse_Click(object sender, RoutedEventArgs e)
+        public void Browse_Click(object sender, RoutedEventArgs e)
         {
 
             // open the dialogue to choose your XML File
@@ -49,11 +48,11 @@ namespace XMLEditor
                 CheckPathExists = true,
                 DefaultExt = "xml",
                 Filter = "xml files (*.xml)|*.xml",
-                
+
             };
             openFileDialog1.ShowDialog();
             string filePath = openFileDialog1.FileName; // getting the full file path of the selected XML file
-
+            path = filePath;
             // load the XML file content from the file the user selected, we will need the file path of the selected one.
 
             string fileContent = File.ReadAllText(filePath); // fileContent contains the content of our selected file finally..
@@ -86,6 +85,10 @@ namespace XMLEditor
             outputField.Text = string.Join("\n", fix.validator(path));
         }
 
+
+
+
+
         // this button is to format and add indentation for the XML file
         private void Format_Click(object sender, RoutedEventArgs e)
         {
@@ -97,7 +100,7 @@ namespace XMLEditor
                 reader2.Close();
             }
             xmlfile.format(xml_tree.getTreeRoot());
-            using (StreamReader reader3 = new StreamReader(xmlfile.XmlFileName))
+            using(StreamReader reader3 = new StreamReader(xmlfile.XmlFileName))
             {
                 var filecontent = reader3.ReadToEnd();
                 outputField.Text = filecontent;
@@ -105,51 +108,32 @@ namespace XMLEditor
             }
         }
 
+
+
+
+
+
+
         // this button is for converting the XML into JSON
         private void JSON_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        // this button is to minify and remove the spaces from the XML file
-        private void Minify_Click(object sender, RoutedEventArgs e)
-        {
-            string Minified = Minifying.CompactWhitespaces(inputField.Text);
-            outputField.Text = Minified;
-        }
-
-
-        // this button is to Compress the XML file size
+        // this buttin is to Compress the XML file size
         private void Compress_Click(object sender, RoutedEventArgs e)
         {
 
-            huffmanTree.Build(content);
-            // Encode
-            BitArray encoded = huffmanTree.Encode(content);
-            foreach (bool bit in encoded)
-            {
-                if (bit)
-                {
-                    outputEncoding += "1" + "";
-                }
-                else
-                {
-                    outputEncoding += "0" + "";
-                }
-            }
+        }
 
-            outputField.Text = outputEncoding;
-            inputDecoding = encoded;
+        private void Decompress_Click(object sender, RoutedEventArgs e)
+        {
 
         }
 
-        // this button is to Decompress the XML file Again.
-        private void Decompress_Click(object sender, RoutedEventArgs e)
+        private void Minify_Click(object sender, RoutedEventArgs e)
         {
-            // we want to test decompressing the file
-            string decoded = huffmanTree.Decode(inputDecoding);
-            outputField.Text = decoded;
-            inputDecoding = null;
+
         }
     }
 }
