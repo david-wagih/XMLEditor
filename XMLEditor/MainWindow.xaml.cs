@@ -22,11 +22,12 @@ namespace XMLEditor
     /// </summary>
     public partial class MainWindow : Window
     {
+        string path = null;
+
 
         public MainWindow()
         {
             InitializeComponent();
-            outputField.Text = "hi i am a test string";
         }
 
 
@@ -41,11 +42,11 @@ namespace XMLEditor
                 CheckPathExists = true,
                 DefaultExt = "xml",
                 Filter = "xml files (*.xml)|*.xml",
-                
+
             };
             openFileDialog1.ShowDialog();
             string filePath = openFileDialog1.FileName; // getting the full file path of the selected XML file
-
+            path = filePath;
             // load the XML file content from the file the user selected, we will need the file path of the selected one.
 
             string fileContent = File.ReadAllText(filePath); // fileContent contains the content of our selected file finally..
@@ -74,7 +75,8 @@ namespace XMLEditor
         // this button is to detect and fix the errors in the XML file
         private void Fix_Click(object sender, RoutedEventArgs e)
         {
-
+            Fix fix = new Fix();
+            outputField.Text = string.Join("\n", fix.validator(path));
         }
 
         // this button is to format and add indentation for the XML file
@@ -92,17 +94,17 @@ namespace XMLEditor
         // this buttin is to Compress the XML file size
         private void Compress_Click(object sender, RoutedEventArgs e)
         {
-
+            // Done
         }
 
         private void Decompress_Click(object sender, RoutedEventArgs e)
         {
-
+            // Done
         }
 
         private void Minify_Click(object sender, RoutedEventArgs e)
         {
-
+            // Done
         }
     }
 }
