@@ -9,12 +9,12 @@ using System.Diagnostics;
 namespace XMLEditor
 {
 
-    public class Node
+     public class Node1
     {
         public char Symbol { get; set; }
         public int Frequency { get; set; }
-        public Node Right { get; set; }
-        public Node Left { get; set; }
+        public Node1 Right { get; set; }
+        public Node1 Left { get; set; }
 
         public List<bool> Traverse(char symbol, List<bool> data)
         {
@@ -67,8 +67,8 @@ namespace XMLEditor
 
     public class HuffmanTree
         {
-            private List<Node> nodes = new List<Node>();
-            public Node Root { get; set; }
+            private List<Node1> Node1s = new List<Node1>();
+            public Node1 Root { get; set; }
             public Dictionary<char, int> Frequencies = new Dictionary<char, int>();
 
             public void Build(string source)
@@ -85,20 +85,20 @@ namespace XMLEditor
 
                 foreach (KeyValuePair<char, int> symbol in Frequencies)
                 {
-                    nodes.Add(new Node() { Symbol = symbol.Key, Frequency = symbol.Value });
+                    Node1s.Add(new Node1() { Symbol = symbol.Key, Frequency = symbol.Value });
                 }
 
-                while (nodes.Count > 1)
+                while (Node1s.Count > 1)
                 {
-                    List<Node> orderedNodes = nodes.OrderBy(node => node.Frequency).ToList<Node>();
+                    List<Node1> orderedNode1s = Node1s.OrderBy(Node1 => Node1.Frequency).ToList<Node1>();
 
-                    if (orderedNodes.Count >= 2)
+                    if (orderedNode1s.Count >= 2)
                     {
                         // Take first two items
-                        List<Node> taken = orderedNodes.Take(2).ToList<Node>();
+                        List<Node1> taken = orderedNode1s.Take(2).ToList<Node1>();
 
-                        // Create a parent node by combining the frequencies
-                        Node parent = new Node()
+                        // Create a parent Node1 by combining the frequencies
+                        Node1 parent = new Node1()
                         {
                             Symbol = '*',
                             Frequency = taken[0].Frequency + taken[1].Frequency,
@@ -106,12 +106,12 @@ namespace XMLEditor
                             Right = taken[1]
                         };
 
-                        nodes.Remove(taken[0]);
-                        nodes.Remove(taken[1]);
-                        nodes.Add(parent);
+                        Node1s.Remove(taken[0]);
+                        Node1s.Remove(taken[1]);
+                        Node1s.Add(parent);
                     }
 
-                    this.Root = nodes.FirstOrDefault();
+                    this.Root = Node1s.FirstOrDefault();
 
                 }
 
@@ -134,7 +134,7 @@ namespace XMLEditor
 
             public string Decode(BitArray bits)
             {
-                Node current = this.Root;
+                Node1 current = this.Root;
                 string decoded = "";
 
                 foreach (bool bit in bits)
@@ -164,9 +164,9 @@ namespace XMLEditor
                 return decoded;
             }
 
-            public bool IsLeaf(Node node)
+            public bool IsLeaf(Node1 Node1)
             {
-                return (node.Left == null && node.Right == null);
+                return (Node1.Left == null && Node1.Right == null);
             }
 
         }

@@ -4,10 +4,12 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using XMLEditor;
 
 namespace XML_Editor
 {
-    class FormatXml
+    
+    public class FormatXml
     {
         /* class members */
         public string XmlFileName;
