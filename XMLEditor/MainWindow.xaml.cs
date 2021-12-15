@@ -82,7 +82,20 @@ namespace XMLEditor
         // this button is to format and add indentation for the XML file
         private void Format_Click(object sender, RoutedEventArgs e)
         {
-
+            FormatXml xmlfile = new FormatXml(path, false);
+            Tree xml_tree = new Tree();
+            using (StreamReader reader2 = new StreamReader(path))
+            {
+                xml_tree.insertFile(reader2);
+                reader2.Close();
+            }
+            xmlfile.format(xml_tree.getTreeRoot());
+            using (StreamReader reader3 = new StreamReader(xmlfile.XmlFileName))
+            {
+                var filecontent = reader3.ReadToEnd();
+                outputField.Text = filecontent;
+                reader3.Close();
+            }
         }
 
         // this button is for converting the XML into JSON
