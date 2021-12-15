@@ -1,0 +1,157 @@
+﻿<Window
+    x:Class="XMLEditor.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="1000"
+    Height="1000"
+    mc:Ignorable="d">
+    <Grid
+        Width="800"
+        Height="900"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="600" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400" />
+            <ColumnDefinition Width="400" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            HorizontalAlignment="Center">
+            <Label FontWeight="Bold">Choose your XML file</Label>
+            <Button
+                Width="100px"
+                HorizontalAlignment="Center"
+                Click="Browse_Click"
+                Cursor="Hand">
+                Browse
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="0"
+            HorizontalAlignment="Center">
+            <Label FontWeight="Bold">Detect and Correct Errors</Label>
+            <Button
+                Width="100"
+                HorizontalAlignment="Center"
+                Click="Fix_Click"
+                Cursor="Hand">
+                Fix
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="0"
+            HorizontalAlignment="Center">
+            <Label FontWeight="Bold">Prettier Format</Label>
+            <Button
+                Width="100"
+                HorizontalAlignment="Center"
+                Click="Format_Click"
+                Cursor="Hand">
+                Format
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalAlignment="Center">
+            <Label FontWeight="Bold">Convert into JSON</Label>
+            <Button
+                Width="100"
+                HorizontalAlignment="Center"
+                Click="JSON_Click"
+                Cursor="Hand">
+                JSON
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalAlignment="Center">
+            <Label FontWeight="Bold">Make file Size Smaller</Label>
+            <Button
+                Width="100px"
+                HorizontalAlignment="Center"
+                Click="Compress_Click"
+                Cursor="Hand">
+                Compress
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="1"
+            HorizontalAlignment="Center">
+            <Label FontWeight="Bold">make file normal again</Label>
+            <Button
+                Width="100px"
+                HorizontalAlignment="Center"
+                Click="Decompress_Click"
+                Cursor="Hand">
+                Decompress
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="3"
+            Grid.Column="0"
+            HorizontalAlignment="Center">
+            <Label FontWeight="Bold">Minify your file</Label>
+            <Button
+                Width="100px"
+                HorizontalAlignment="Center"
+                Click="Minify_Click"
+                Cursor="Hand">
+                Minify
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="3"
+            Grid.Column="1"
+            HorizontalAlignment="Center">
+            <Label FontWeight="Bold">Export it to new file</Label>
+            <Button
+                Width="100px"
+                HorizontalAlignment="Center"
+                Click="Save_Click"
+                Cursor="Hand">
+                Save
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="4"
+            Grid.Column="0"
+            HorizontalAlignment="Center">
+            <Label FontWeight="Bold">Input File</Label>
+            <TextBox
+                x:Name="inputField"
+                Width="320"
+                Height="572"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="4"
+            Grid.Column="1"
+            HorizontalAlignment="Center">
+            <Label FontWeight="Bold">Output File</Label>
+            <TextBox
+                x:Name="outputField"
+                Width="320"
+                Height="572"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto" />
+
+        </StackPanel>
+    </Grid>
+</Window>
