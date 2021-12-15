@@ -76,7 +76,7 @@ namespace XMLEditor
         private void Fix_Click(object sender, RoutedEventArgs e)
         {
             Fix fix = new Fix();
-            outputField.Text = string.Join("\n", fix.validator(path));
+            outputField.Text = string.Join("\n",fix.validator(path));
         }
 
         // this button is to format and add indentation for the XML file
