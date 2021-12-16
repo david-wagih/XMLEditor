@@ -9,90 +9,6 @@ namespace XMLEditor
 {
 
 
-    class Node
-    {
-        private string tagName;
-        private string tagValue;
-        private string tagAttributes;
-        private int depth;
-        private Node parent;
-        private List<Node> children = new List<Node>();
-
-        public Node(string tagName, string tagValue, string tagAttributes, int depth, Node parent)
-        {
-            this.tagName = tagName;
-            this.tagValue = tagValue;
-            this.depth = depth;
-            this.tagAttributes = tagAttributes;
-
-            this.parent = parent;
-        }
-
-        public Node()
-        {
-            tagName = null;
-            tagValue = null;
-            tagAttributes = null;
-            depth = 0;
-            parent = null;
-        }
-
-
-        public Node getParent()
-        {
-            return parent;
-        }
-        public void setParent(Node parent)
-        {
-            this.parent = parent;
-        }
-
-        public List<Node> getChildren()
-        {
-            return children;
-        }
-
-        public string getTagName()
-        {
-            return tagName;
-        }
-
-        public string getTagValue()
-        {
-            return tagValue;
-        }
-
-        public int getDepth()
-        {
-            return depth;
-        }
-
-        public string getTagAttributes()
-        {
-            return tagAttributes;
-        }
-
-
-        public void setTagName(string tn)
-        {
-            tagName = tn;
-        }
-        public void setTagValue(string tv)
-        {
-            tagValue = tv;
-        }
-
-        public void setDepth(int d)
-        {
-            depth = d;
-        }
-
-        public void setTagAttributes(string ta)
-        {
-            tagAttributes = ta;
-        }
-    }
-
     class Tree
     {
         private Node root;
@@ -123,7 +39,7 @@ namespace XMLEditor
                 {
                     string name = null;
                     string value = null;
-                    Node child = new Node(null, null, null, node.getDepth() + 1, node);
+                    Node child = new Node(null, null,null, node.getDepth() + 1, node);
                     node.getChildren().Add(child);
                     character = (char)reader.Read();
                     while (character != '>')

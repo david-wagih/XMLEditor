@@ -128,7 +128,7 @@ namespace XMLEditor
                 }
                 else if (children.Count() == 0)
                 {
-                    // if node has siblings and no children
+                    // if node has siblings and no Children
                     if (parent.getChildren().Count() > 1)
                     {
 
@@ -143,7 +143,7 @@ namespace XMLEditor
                     }
                     else
                     {
-                        //if node has no children and no siblings
+                        //if node has no Children and no siblings
                         write(indentation + '"' + node.getTagName() + '"' + ':' + '"' + node.getTagValue() + '"', true);
                     }
 
@@ -151,7 +151,7 @@ namespace XMLEditor
                 else if (children.Count() > 0)
                 {
 
-                    //if it has children and siblings
+                    //if it has Children and siblings
                     if (parent.getChildren().Count() > 1)
                     {
                         if (node != parent.getChildren()[parent.getChildren().Count - 1])//eb2y shofy hna brdo
@@ -166,7 +166,7 @@ namespace XMLEditor
                     }
                     else
                     {
-                        //if node has children and no siblings
+                        //if node has Children and no siblings
                         write(indentation + '"' + node.getTagName() + '"' + ':' + space + openCurlyBraces, true);
 
                     }
@@ -215,7 +215,7 @@ namespace XMLEditor
                 else if (children.Count() > 0)
                 {
 
-                    //if it has children and siblings
+                    //if it has Children and siblings
                     if (parent.getChildren().Count() > 1)
                     {
                         if (node != parent.getChildren()[parent.getChildren().Count - 1])//eb2y shofy hna brdo
@@ -230,7 +230,7 @@ namespace XMLEditor
                     }
                     else
                     {
-                        //if node has children and no siblings
+                        //if node has Children and no siblings
                         write(indentation + closedCurlyBraces, true);
 
                     }

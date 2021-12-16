@@ -25,6 +25,7 @@ namespace XMLEditor
     /// </summary>
     public partial class MainWindow : Window
     {
+        // some variables to use through the program
         string path = null;
         string Content = null;
         string outputEncoding = null;
@@ -32,17 +33,13 @@ namespace XMLEditor
         HuffmanTree huffmanTree = new HuffmanTree();
 
 
-
+        // the main constructor
         public MainWindow()
         {
-
             InitializeComponent();
-
-
-
         }
 
-
+        // this method is for choosing the XML file from your computer to perform operations on it
         public void Browse_Click(object sender, RoutedEventArgs e)
         {
 
@@ -69,7 +66,7 @@ namespace XMLEditor
         }
 
 
-        // want to be able to save the file as xml file or JSON file
+        // this method is for saving the output of any operation in a new file with XML or JSON extensions
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -78,11 +75,28 @@ namespace XMLEditor
             saveFileDialog1.Filter = "XML files (*.xml)|*.xml|JSON Files (*.json*)|*.json*";
             saveFileDialog1.ShowDialog(this);
             using (Stream s = File.Open(saveFileDialog1.FileName, FileMode.CreateNew))
-            using (StreamWriter sw = new StreamWriter(s))
-            {
-                sw.Write(outputField.Text);
-            }
+            if(inputDecoding != null)
+                {
+                    using(BinaryWriter bw = new BinaryWriter(s))
+                    {
+                        
+                        byte[] bytes = new byte[inputDecoding.Length / 8 + (inputDecoding.Length % 8 == 0 ? 0 : 1)];
+                        inputDecoding.CopyTo(bytes, 0);
+                        bw.Write(bytes, 0, bytes.Length);
+                    }
+                }
+                else
+                {
+                    using (StreamWriter sw = new StreamWriter(s))
+                    {
+                        sw.Write(outputField.Text);
+                    }
+                }
+
         }
+
+
+
 
         // this button is to detect and fix the errors in the XML file
         private void Fix_Click(object sender, RoutedEventArgs e)
@@ -127,6 +141,8 @@ namespace XMLEditor
 
 
 
+
+
         // this buttin is to Compress the XML file size
         private void Compress_Click(object sender, RoutedEventArgs e)
         {
@@ -153,15 +169,19 @@ namespace XMLEditor
 
 
 
+        // this method is for returning the file as it was before compressing.
+
         private void Decompress_Click(object sender, RoutedEventArgs e)
         {
             string decoded = huffmanTree.Decode(inputDecoding);
-
             outputField.Text = decoded;
+            inputDecoding = null;
         }
 
 
 
+
+        // this method is responsible for removing the spaces and indentation to minify the file.
         private void Minify_Click(object sender, RoutedEventArgs e)
         {
 

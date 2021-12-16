@@ -8,23 +8,22 @@ using System.Threading.Tasks;
 namespace XMLEditor
 {
 
-    public class Node
+   public  class Node
     {
-                  private string tagName;
-                  private string tagValue;
-                  private string tagAttributes;
-                  private int depth;
-                  private bool isClosingTag;
+        private string tagName;
+        private string tagValue;
+        private string tagAttributes;
+        private int depth;
         private Node parent;
         private List<Node> children = new List<Node>();
 
-        public Node(string tagName, string tagValue, string tagAttributes, bool isClosingTag, int depth, Node parent)
+        public Node(string tagName, string tagValue, string tagAttributes, int depth, Node parent)
         {
             this.tagName = tagName;
             this.tagValue = tagValue;
             this.depth = depth;
             this.tagAttributes = tagAttributes;
-            this.isClosingTag = isClosingTag;
+
             this.parent = parent;
         }
 
@@ -33,7 +32,6 @@ namespace XMLEditor
             tagName = null;
             tagValue = null;
             tagAttributes = null;
-            isClosingTag = false;
             depth = 0;
             parent = null;
         }
@@ -72,10 +70,7 @@ namespace XMLEditor
         {
             return tagAttributes;
         }
-        public bool getIsClosingTag()
-        {
-            return isClosingTag;
-        }
+
 
         public void setTagName(string tn)
         {
@@ -85,10 +80,7 @@ namespace XMLEditor
         {
             tagValue = tv;
         }
-        public void setIsClosingTag(bool check)
-        {
-            isClosingTag = check;
-        }
+
         public void setDepth(int d)
         {
             depth = d;
