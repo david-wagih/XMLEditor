@@ -202,5 +202,12 @@ namespace XMLEditor
         }
 
 
+
+
+        // this is for fun 
+        private void SUI_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -18,6 +18,7 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="50" />
             <RowDefinition Height="600" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400" />
@@ -151,7 +152,20 @@
                 Height="572"
                 HorizontalScrollBarVisibility="Auto"
                 VerticalScrollBarVisibility="Auto" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="5"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
 
+            <Button
+                Width="100px"
+                HorizontalAlignment="Center"
+                Click="SUI_Click"
+                Cursor="Hand">
+                SUIIIIIIIIIIIII
+            </Button>
         </StackPanel>
     </Grid>
 </Window>
