@@ -72,7 +72,7 @@ namespace XMLEditor
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Title = "Save XML & JSON Files";
             saveFileDialog1.DefaultExt = "xml";
-            saveFileDialog1.Filter = "XML files (*.xml)|*.xml|JSON Files (*.json*)|*.json*";
+            saveFileDialog1.Filter = "XML files (*.xml)|*.xml | Json files (*.json)|*.json";
             saveFileDialog1.ShowDialog(this);
             using (Stream s = File.Open(saveFileDialog1.FileName, FileMode.CreateNew))
             if(inputDecoding != null)
@@ -135,6 +135,20 @@ namespace XMLEditor
         // this button is for converting the XML into JSON
         private void JSON_Click(object sender, RoutedEventArgs e)
         {
+            ConvertToJSON xmlfile = new ConvertToJSON(path, 0);
+            Tree xml_tree = new Tree();
+            using (StreamReader reader2 = new StreamReader(path))
+            {
+                xml_tree.insertFile(reader2);
+                reader2.Close();
+            }
+            xmlfile.Convert(xml_tree.getTreeRoot());
+            using (StreamReader reader3 = new StreamReader(xmlfile.filename))
+            {
+                var filecontent = reader3.ReadToEnd();
+                outputField.Text = filecontent;
+                reader3.Close();
+            }
 
         }
 
@@ -184,7 +198,7 @@ namespace XMLEditor
         // this method is responsible for removing the spaces and indentation to minify the file.
         private void Minify_Click(object sender, RoutedEventArgs e)
         {
-
+            outputField.Text = Minifying.CompactWhitespaces(Content);
         }
 
 
