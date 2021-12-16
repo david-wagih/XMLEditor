@@ -119,7 +119,7 @@ namespace XMLEditor
             while (reader.Peek() >= 0)
             {
                 character = (char)reader.Read();
-                if (character == '<' && reader.Peek() != '/')
+                if (character == '<' && reader.Peek() != '/' && reader.Peek() != '?')
                 {
                     string name = null;
                     string value = null;
