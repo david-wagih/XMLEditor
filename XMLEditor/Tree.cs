@@ -15,17 +15,16 @@ namespace XMLEditor
         private string tagValue;
         private string tagAttributes;
         private int depth;
-        private bool isClosingTag;
         private Node parent;
         private List<Node> children = new List<Node>();
 
-        public Node(string tagName, string tagValue, string tagAttributes, bool isClosingTag, int depth, Node parent)
+        public Node(string tagName, string tagValue, string tagAttributes, int depth, Node parent)
         {
             this.tagName = tagName;
             this.tagValue = tagValue;
             this.depth = depth;
             this.tagAttributes = tagAttributes;
-            this.isClosingTag = isClosingTag;
+
             this.parent = parent;
         }
 
@@ -34,7 +33,6 @@ namespace XMLEditor
             tagName = null;
             tagValue = null;
             tagAttributes = null;
-            isClosingTag = false;
             depth = 0;
             parent = null;
         }
@@ -73,10 +71,7 @@ namespace XMLEditor
         {
             return tagAttributes;
         }
-        public bool getIsClosingTag()
-        {
-            return isClosingTag;
-        }
+
 
         public void setTagName(string tn)
         {
@@ -86,10 +81,7 @@ namespace XMLEditor
         {
             tagValue = tv;
         }
-        public void setIsClosingTag(bool check)
-        {
-            isClosingTag = check;
-        }
+
         public void setDepth(int d)
         {
             depth = d;
@@ -115,12 +107,7 @@ namespace XMLEditor
         }
 
 
-        private char skipSpaces(StreamReader reader)
-        {
-            char letter = (char)reader.Read();
-            while (letter == '\n' || letter == '\t' || letter == ' ') letter = (char)reader.Read();
-            return letter;
-        }
+
 
         public Node getTreeRoot()
         {
@@ -136,7 +123,7 @@ namespace XMLEditor
                 {
                     string name = null;
                     string value = null;
-                    Node child = new Node(null, null, null, false, node.getDepth() + 1, node);
+                    Node child = new Node(null, null, null, node.getDepth() + 1, node);
                     node.getChildren().Add(child);
                     character = (char)reader.Read();
                     while (character != '>')
@@ -169,13 +156,18 @@ namespace XMLEditor
                                 character = (char)reader.Read();
                                 continue;
                             }
+                            if ((character == ' ' && reader.Peek() == ' ') || (character == ' ' && reader.Peek() == '<'))
+                            {
+                                character = (char)reader.Read();
+                                continue;
+                            }
                             value += character;
                             character = (char)reader.Read();
 
                         }
                         child.setTagValue(value);
                     }
-                    //used for debuging
+                    //used for debugging
                     /* Console.WriteLine("depth: " + child.getDepth() + " tag name: " + child.getTagName() + " value: " + child.getTagValue() );
                      if(node.getParent() != null)
                      {
