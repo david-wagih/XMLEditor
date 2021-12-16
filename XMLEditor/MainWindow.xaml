@@ -161,6 +161,7 @@
 
             <Button
                 Width="100px"
+                Height="30px"
                 HorizontalAlignment="Center"
                 Click="SUI_Click"
                 Cursor="Hand">
