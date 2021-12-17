@@ -45,13 +45,13 @@ namespace XMLEditor
                 {
                     sw.WriteLine(s);
                     sw.Close();
-                    Console.WriteLine(s);
+                    //  Console.WriteLine(s); //for debugging purpose
                 }
                 else
                 {
                     sw.Write(s);
                     sw.Close();
-                    Console.Write(s);
+                    //  Console.Write(s); //for debugging purpose
                 }
             }
         }
@@ -86,7 +86,16 @@ namespace XMLEditor
             if (node.getDepth() == 0)
             {
                 write(openCurlyBraces, true);
-                write(indentation + '"' + node.getTagName() + '"' + ':' + space + openCurlyBraces, true);
+                if (children.Count > 0)
+                {
+                    write(indentation + '"' + node.getTagName() + '"' + ':' + space + openCurlyBraces, true);
+                }
+                else
+                {
+                    write(indentation + '"' + node.getTagName() + '"' + ':' + space + '"' + node.getTagValue() + '"', true);
+                }
+
+
             }
             else
             { //if node has "siblings" of the same tag name (array) 
@@ -128,7 +137,7 @@ namespace XMLEditor
                 }
                 else if (children.Count() == 0)
                 {
-                    // if node has siblings and no Children
+                    // if node has siblings and no children
                     if (parent.getChildren().Count() > 1)
                     {
 
@@ -143,7 +152,7 @@ namespace XMLEditor
                     }
                     else
                     {
-                        //if node has no Children and no siblings
+                        //if node has no children and no siblings
                         write(indentation + '"' + node.getTagName() + '"' + ':' + '"' + node.getTagValue() + '"', true);
                     }
 
@@ -151,7 +160,7 @@ namespace XMLEditor
                 else if (children.Count() > 0)
                 {
 
-                    //if it has Children and siblings
+                    //if it has children and siblings
                     if (parent.getChildren().Count() > 1)
                     {
                         if (node != parent.getChildren()[parent.getChildren().Count - 1])//eb2y shofy hna brdo
@@ -166,7 +175,7 @@ namespace XMLEditor
                     }
                     else
                     {
-                        //if node has Children and no siblings
+                        //if node has children and no siblings
                         write(indentation + '"' + node.getTagName() + '"' + ':' + space + openCurlyBraces, true);
 
                     }
@@ -183,8 +192,10 @@ namespace XMLEditor
 
             if (node.getDepth() == 0)
             {
-
-                write(space + closedCurlyBraces, true);
+                if (children.Count > 0)
+                {
+                    write(indentation + closedCurlyBraces, true);
+                }
                 write(closedCurlyBraces, true);
             }
             else
@@ -215,7 +226,7 @@ namespace XMLEditor
                 else if (children.Count() > 0)
                 {
 
-                    //if it has Children and siblings
+                    //if it has children and siblings
                     if (parent.getChildren().Count() > 1)
                     {
                         if (node != parent.getChildren()[parent.getChildren().Count - 1])//eb2y shofy hna brdo
@@ -230,7 +241,7 @@ namespace XMLEditor
                     }
                     else
                     {
-                        //if node has Children and no siblings
+                        //if node has children and no siblings
                         write(indentation + closedCurlyBraces, true);
 
                     }
