@@ -26,7 +26,7 @@ namespace XMLEditor
     public partial class MainWindow : Window
     {
         // some variables to use through the program
-        string path = null;
+        public string path = null;
         string Content = null;
         string outputEncoding = null;
         BitArray inputDecoding = null;
