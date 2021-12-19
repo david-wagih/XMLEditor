@@ -101,8 +101,10 @@ namespace XMLEditor
         // this button is to detect and fix the errors in the XML file
         private void Fix_Click(object sender, RoutedEventArgs e)
         {
+            int num = 0;
             Fix fix = new Fix();
-            outputField.Text = string.Join("\n", fix.validator(path));
+            outputField.Text = string.Join("\n", fix.validator(ref num,path));
+            outputFieldLabel.Content = "this file contains " + num + " errors"; 
         }
 
 

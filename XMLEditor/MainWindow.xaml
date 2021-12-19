@@ -144,7 +144,7 @@
             Grid.Row="4"
             Grid.Column="1"
             HorizontalAlignment="Center">
-            <Label FontWeight="Bold">Output File</Label>
+            <Label x:Name="outputFieldLabel" FontWeight="Bold">Output File</Label>
             <TextBox
                 x:Name="outputField"
                 Width="320"
