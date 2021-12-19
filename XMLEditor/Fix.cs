@@ -77,7 +77,7 @@ namespace ConsoleApp2
                             }
                             else    //closing bracket is missing
                             {
-                                lines[i] = line.Substring(0, j + cnt) + ">" + line.Substring(j + cnt, line.Length - 1);     //Should replace all the + "</"
+                                lines[i] = line.Substring(0, j + cnt+1) + ">" + line.Substring(j + cnt+1, line.Length - 1-j- cnt);     //Should replace all the + "</"
                                 line = lines[i];
                                 Console.WriteLine("Adding a closing bracket at the end of line " + i);
                                 tag = line.Substring(j + 2, cnt - 1);
@@ -162,19 +162,20 @@ namespace ConsoleApp2
                             }
                             else //closing bracket is missing :(
                             {
-                                lines[i] = line.Substring(0, j + cnt) + ">" + line.Substring(j + cnt, line.Length-cnt);
+                                lines[i] = line.Substring(0, j + cnt+1) + ">" + line.Substring(j + cnt+1, line.Length-1-j-cnt);
+                                line = lines[i];
                                 brackets.Pop();
                                 bracketsLocation.Pop();
                                 line = lines[i];
                                 Console.WriteLine("Adding a closing bracket at the end of line " + i);
-                                string tag = line.Substring(j + 1, cnt-1);
+                                string tag = line.Substring(j + 1, cnt);
                                 tags.Push(tag);
                                 int[] tagLocation = new int[3];
                                 tagLocation[0] = i;
                                 tagLocation[1] = j + 1;
                                 tagLocation[2] = j + cnt - 1;
                                 tagsLocation.Push(tagLocation);
-                                j += cnt;
+                                j += cnt+1;
                                 
                             }
                         }
@@ -183,7 +184,7 @@ namespace ConsoleApp2
                     {
                         if(brackets.Count != 0) //checking that the stack has brackets in order to be able to peek
                         {
-                            if (brackets.Peek().ToString() == "<")
+                            if (brackets.Peek().ToString() == "<") 
                             {
                                 brackets.Pop();
                             }
