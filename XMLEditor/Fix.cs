@@ -152,6 +152,10 @@ namespace ConsoleApp2
                             if (line[j+cnt] == '>') //found the closing bracket
                             {
                                 string tag = line.Substring(j + 1, cnt - 1);
+                                if(tag == "id")
+                                {
+                                    Console.WriteLine("Bos ya m3alem la2eit eh");
+                                }
                                 tags.Push(tag);
                                 int[] tagLocation = new int[3];
                                 tagLocation[0] = i;
@@ -162,13 +166,17 @@ namespace ConsoleApp2
                             }
                             else //closing bracket is missing :(
                             {
-                                lines[i] = line.Substring(0, j + cnt+1) + ">" + line.Substring(j + cnt+1, line.Length-1-j-cnt);
+                                lines[i] = line.Substring(0, j + cnt) + ">" + line.Substring(j + cnt+1, line.Length-1-j-cnt);
                                 line = lines[i];
                                 brackets.Pop();
                                 bracketsLocation.Pop();
                                 line = lines[i];
                                 Console.WriteLine("Adding a closing bracket at the end of line " + i);
-                                string tag = line.Substring(j + 1, cnt);
+                                string tag = line.Substring(j + 1, cnt-1);  //Was a mistake
+                                if (tag == "id")
+                                {
+                                    Console.WriteLine("Bos ya m3alem la2eit eh");
+                                }
                                 tags.Push(tag);
                                 int[] tagLocation = new int[3];
                                 tagLocation[0] = i;
