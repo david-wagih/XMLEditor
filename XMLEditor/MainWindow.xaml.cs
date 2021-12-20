@@ -17,6 +17,7 @@ using System.Xml;
 using System.IO;
 using XML_Editor;
 using System.Collections;
+using System.Reflection;
 
 namespace XMLEditor
 {
@@ -27,6 +28,7 @@ namespace XMLEditor
     {
         // some variables to use through the program
         public string path = null;
+        public static string directoryName = null;
         string Content = null;
         string outputEncoding = null;
         BitArray inputDecoding = null;
@@ -56,6 +58,8 @@ namespace XMLEditor
             openFileDialog1.ShowDialog();
             string filePath = openFileDialog1.FileName; // getting the full file path of the selected XML file
             path = filePath;
+            directoryName = System.IO.Path.GetDirectoryName(filePath);
+
             // load the XML file content from the file the user selected, we will need the file path of the selected one.
 
             string fileContent = File.ReadAllText(filePath); // fileContent contains the content of our selected file finally..
@@ -102,19 +106,32 @@ namespace XMLEditor
         private void Fix_Click(object sender, RoutedEventArgs e)
         {
             int num = 0;
+            Queue errors = new Queue();
             Fix fix = new Fix();
-            outputField.Text = string.Join("\n", fix.validator(ref num,path));
-            outputFieldLabel.Content = "this file contains " + num + " errors"; 
+            outputField.Text = string.Join("\n", fix.validator(ref num, ref errors,path));
+            errosField.Text = "this file contains " + num + " errors" + "\n";
+            while (errors.Count != 0)
+            {
+                errosField.Text += errors.Peek().ToString() + "\n";
+                errors.Dequeue();
+            }
         }
 
 
 
 
-
+        
+        
         // this button is to format and add indentation for the XML file
         private void Format_Click(object sender, RoutedEventArgs e)
         {
-            FormatXml xmlfile = new FormatXml(path, false);
+            // this new file to save the output of the format function to not overwrite the main file
+            string newtextFilePath = directoryName + @"\output.txt";
+            using (FileStream fs = File.Create(newtextFilePath))
+            {
+
+            }
+            FormatXml xmlfile = new FormatXml(newtextFilePath, false);
             Tree xml_tree = new Tree();
             using (StreamReader reader2 = new StreamReader(path))
             {
@@ -134,10 +151,18 @@ namespace XMLEditor
 
 
 
+        
+        
         // this button is for converting the XML into JSON
         private void JSON_Click(object sender, RoutedEventArgs e)
         {
-            ConvertToJSON xmlfile = new ConvertToJSON(path, 0);
+            // creating new json file to write the output of the function on it
+            string newJSONFilePath = directoryName + @"\output.json";
+            using (FileStream fs = File.Create(newJSONFilePath))
+            {
+                
+            }
+            ConvertToJSON xmlfile = new ConvertToJSON(newJSONFilePath, 0);
             Tree xml_tree = new Tree();
             using (StreamReader reader2 = new StreamReader(path))
             {

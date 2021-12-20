@@ -146,9 +146,15 @@
             HorizontalAlignment="Center">
             <Label x:Name="outputFieldLabel" FontWeight="Bold">Output File</Label>
             <TextBox
+                x:Name="errosField"
+                Width="320"
+                Height="100"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto" />
+            <TextBox
                 x:Name="outputField"
                 Width="320"
-                Height="572"
+                Height="472"
                 HorizontalScrollBarVisibility="Auto"
                 VerticalScrollBarVisibility="Auto" />
         </StackPanel>
