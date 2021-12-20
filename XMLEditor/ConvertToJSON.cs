@@ -45,13 +45,13 @@ namespace XMLEditor
                 {
                     sw.WriteLine(s);
                     sw.Close();
-                    Console.WriteLine(s);
+                    //  Console.WriteLine(s); //for debugging purpose
                 }
                 else
                 {
                     sw.Write(s);
                     sw.Close();
-                    Console.Write(s);
+                    //  Console.Write(s); //for debugging purpose
                 }
             }
         }
@@ -86,7 +86,16 @@ namespace XMLEditor
             if (node.getDepth() == 0)
             {
                 write(openCurlyBraces, true);
-                write(indentation + '"' + node.getTagName() + '"' + ':' + space + openCurlyBraces, true);
+                if (children.Count > 0)
+                {
+                    write(indentation + '"' + node.getTagName() + '"' + ':' + space + openCurlyBraces, true);
+                }
+                else
+                {
+                    write(indentation + '"' + node.getTagName() + '"' + ':' + space + '"' + node.getTagValue() + '"', true);
+                }
+
+
             }
             else
             { //if node has "siblings" of the same tag name (array) 
@@ -183,8 +192,10 @@ namespace XMLEditor
 
             if (node.getDepth() == 0)
             {
-
-                write(space + closedCurlyBraces, true);
+                if (children.Count > 0)
+                {
+                    write(indentation + closedCurlyBraces, true);
+                }
                 write(closedCurlyBraces, true);
             }
             else
