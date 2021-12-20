@@ -9,7 +9,7 @@
     mc:Ignorable="d">
     <Grid
         Width="800"
-        Height="900"
+        Height="672"
         HorizontalAlignment="Center"
         VerticalAlignment="Center">
         <Grid.RowDefinitions>
@@ -20,13 +20,13 @@
             <RowDefinition Height="600" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400" />
+            <ColumnDefinition Width="398" />
+            <ColumnDefinition Width="2"/>
             <ColumnDefinition Width="400" />
         </Grid.ColumnDefinitions>
 
         <StackPanel
             Grid.Row="0"
-            Grid.Column="0"
             HorizontalAlignment="Center">
             <Label FontWeight="Bold">Choose your XML file</Label>
             <Button
@@ -39,7 +39,6 @@
         </StackPanel>
         <StackPanel
             Grid.Row="1"
-            Grid.Column="0"
             HorizontalAlignment="Center">
             <Label FontWeight="Bold">Detect and Correct Errors</Label>
             <Button
@@ -52,7 +51,6 @@
         </StackPanel>
         <StackPanel
             Grid.Row="2"
-            Grid.Column="0"
             HorizontalAlignment="Center">
             <Label FontWeight="Bold">Prettier Format</Label>
             <Button
@@ -65,7 +63,7 @@
         </StackPanel>
         <StackPanel
             Grid.Row="0"
-            Grid.Column="1"
+            Grid.Column="2"
             HorizontalAlignment="Center">
             <Label FontWeight="Bold">Convert into JSON</Label>
             <Button
@@ -78,7 +76,7 @@
         </StackPanel>
         <StackPanel
             Grid.Row="1"
-            Grid.Column="1"
+            Grid.Column="2"
             HorizontalAlignment="Center">
             <Label FontWeight="Bold">Make file Size Smaller</Label>
             <Button
@@ -91,7 +89,7 @@
         </StackPanel>
         <StackPanel
             Grid.Row="2"
-            Grid.Column="1"
+            Grid.Column="2"
             HorizontalAlignment="Center">
             <Label FontWeight="Bold">make file normal again</Label>
             <Button
@@ -104,7 +102,6 @@
         </StackPanel>
         <StackPanel
             Grid.Row="3"
-            Grid.Column="0"
             HorizontalAlignment="Center">
             <Label FontWeight="Bold">Minify your file</Label>
             <Button
@@ -117,7 +114,7 @@
         </StackPanel>
         <StackPanel
             Grid.Row="3"
-            Grid.Column="1"
+            Grid.Column="2"
             HorizontalAlignment="Center">
             <Label FontWeight="Bold">Export it to new file</Label>
             <Button
@@ -130,7 +127,6 @@
         </StackPanel>
         <StackPanel
             Grid.Row="4"
-            Grid.Column="0"
             HorizontalAlignment="Center">
             <Label FontWeight="Bold">Input File</Label>
             <TextBox
@@ -142,7 +138,7 @@
         </StackPanel>
         <StackPanel
             Grid.Row="4"
-            Grid.Column="1"
+            Grid.Column="2"
             HorizontalAlignment="Center">
             <Label x:Name="outputFieldLabel" FontWeight="Bold">Output File</Label>
             <TextBox

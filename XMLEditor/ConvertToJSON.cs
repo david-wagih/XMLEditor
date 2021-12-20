@@ -10,11 +10,11 @@ namespace XMLEditor
     class ConvertToJSON
     {
         public int first;
-        public string filename;
-
-        public ConvertToJSON(string fname, int first)
+        //public string filename;
+        public StringBuilder sb;
+        public ConvertToJSON(StringBuilder fname, int first)
         {
-            filename = fname;
+            sb = fname;
             this.first = first;
         }
 
@@ -23,35 +23,39 @@ namespace XMLEditor
         {
             if (first == 0)
             {
-                StreamWriter sw = new StreamWriter(filename, false);
+                //StreamWriter sw = new StreamWriter(filename, false);
                 if (add == true)
                 {
-                    sw.WriteLine(s);
-                    sw.Close();
-                    //Console.WriteLine(s); //for debugging purpose
+                    // sw.WriteLine(s);
+                    //  sw.Close();
+                    //  Console.WriteLine(s); //for debugging purpose
+                    sb.Append(s + '\n');
                 }
                 else
                 {
-                    sw.Write(s);
-                    sw.Close();
+                    // sw.Write(s);
+                    //sw.Close();
                     //Console.Write(s); //for debugging purpose
+                    sb.Append(s);
                 }
                 first = 1;
             }
             else
             {
-                StreamWriter sw = new StreamWriter(filename, true);
+                // StreamWriter sw = new StreamWriter(filename, true);
                 if (add == true)
                 {
-                    sw.WriteLine(s);
-                    sw.Close();
-                    //  Console.WriteLine(s); //for debugging purpose
+                    // sw.WriteLine(s);
+                    // sw.Close();
+                    //Console.WriteLine(s); //for debugging purpose
+                    sb.Append(s + '\n');
                 }
                 else
                 {
-                    sw.Write(s);
-                    sw.Close();
-                    //  Console.Write(s); //for debugging purpose
+                    //  sw.Write(s);
+                    //sw.Close();
+                    // Console.Write(s); //for debugging purpose
+                    sb.Append(s);
                 }
             }
         }

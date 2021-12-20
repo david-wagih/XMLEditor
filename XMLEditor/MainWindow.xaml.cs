@@ -151,31 +151,19 @@ namespace XMLEditor
 
 
 
-        
-        
+
+
         // this button is for converting the XML into JSON
         private void JSON_Click(object sender, RoutedEventArgs e)
         {
-            // creating new json file to write the output of the function on it
-            string newJSONFilePath = directoryName + @"\output.json";
-            using (FileStream fs = File.Create(newJSONFilePath))
-            {
-                
-            }
-            ConvertToJSON xmlfile = new ConvertToJSON(newJSONFilePath, 0);
-            Tree xml_tree = new Tree();
-            using (StreamReader reader2 = new StreamReader(path))
-            {
-                xml_tree.insertFile(reader2);
-                reader2.Close();
-            }
-            xmlfile.Convert(xml_tree.getTreeRoot());
-            using (StreamReader reader3 = new StreamReader(xmlfile.filename))
-            {
-                var filecontent = reader3.ReadToEnd();
-                outputField.Text = filecontent;
-                reader3.Close();
-            }
+            StreamReader sr = new StreamReader(path);
+            Tree tree = new Tree();
+            tree.insertFile(sr);
+            StringBuilder sb = new StringBuilder();
+            ConvertToJSON j = new ConvertToJSON(sb, 0); // remaining is where to get the output :D
+            j.Convert(tree.getTreeRoot());
+            outputField.Text = sb.ToString();
+
 
         }
 
