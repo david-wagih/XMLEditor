@@ -35,7 +35,7 @@ namespace ConsoleApp2
      */
     class Program
     {
-        static string[] validator(ref int numberOfErrors)
+        static string[] validator(ref int numberOfErrors,ref Queue errors)
         {
             numberOfErrors = 0;
             bool missingOpeningTags = false;
@@ -81,7 +81,9 @@ namespace ConsoleApp2
                                 lines[i] = line.Substring(0, j + cnt+1) + ">" + line.Substring(j + cnt+1, line.Length - 1-j- cnt);     //Should replace all the + "</"
                                 line = lines[i];
                                 Console.WriteLine("Adding a closing bracket at the end of line " + i);
-                                tag = line.Substring(j + 2, cnt - 1);
+                                errors.Enqueue("Adding a closing bracket at the end of line " + i);
+                                
+                               tag = line.Substring(j + 2, cnt - 1);
                                 j += cnt - 1;
                                 numberOfErrors++;
                             }
@@ -107,6 +109,8 @@ namespace ConsoleApp2
                                         if (tags.Peek().ToString() == tag)
                                         {
                                             Console.WriteLine("The tag " + tempTag + " in the line " + (int)(tempLocation[0]) + " and starting from " + (int)(tempLocation[1]) + " with length of " + (int)(tempLocation[2]) + " has its end-tag missing");
+                                            errors.Enqueue("The tag " + tempTag + " in the line " + (int)(tempLocation[0]) + " and starting from " + (int)(tempLocation[1]) + " with length of " + (int)(tempLocation[2]) + " has its end-tag missing");
+
                                             lines[i] = "</" + tempTag + ">" + lines[i];     //MODIFIED REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
                                             //missingEndTags = true;
                                             lastEndTagFound = i; //QUESTIONABLE
@@ -129,6 +133,7 @@ namespace ConsoleApp2
                                     {
                                         missingOpeningTags = true;
                                         Console.WriteLine("The tag " + tag + " in the line " + i + " and starting from " + (int)(j + 2) + " with length of " + (int)(cnt - 2) + " has its open-tag missing");
+                                        errors.Enqueue("The tag " + tag + " in the line " + i + " and starting from " + (int)(j + 2) + " with length of " + (int)(cnt - 2) + " has its open-tag missing");
                                         numberOfErrors++;
                                         int toBeClosedTagLocation = tempLocation[0];
                                         lines[toBeClosedTagLocation] = lines[toBeClosedTagLocation] + "<" + tag + ">"  ;
@@ -141,6 +146,7 @@ namespace ConsoleApp2
                             {
                                 missingOpeningTags = true;
                                 Console.WriteLine("The tag " + tag + " in the line " + (int)(i+1) + " and starting from " + (int)(j+2) + " with length of " + (int)(cnt-2) + " has its open-tag missing");
+                                errors.Enqueue("The tag " + tag + " in the line " + (int)(i + 1) + " and starting from " + (int)(j + 2) + " with length of " + (int)(cnt - 2) + " has its open-tag missing");
                                 numberOfErrors++;
                                 lines[lastOpenTagPoppedLine] = "<" + tag + ">" + lines[lastOpenTagPoppedLine];      // MODIFIED REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
                             }
@@ -166,14 +172,27 @@ namespace ConsoleApp2
                             }
                             else //closing bracket is missing :(
                             {
-                                lines[i] = line.Substring(0, j + cnt) + ">" + line.Substring(j + cnt+1, line.Length-1-j-cnt);
-                                line = lines[i];
+                                string tag;
+                                if (j + cnt >= line.Length - 1)
+                                {
+                                    lines[i] = line.Substring(0, j + cnt +1) + ">" + line.Substring(j + cnt + 1, line.Length - 1 - j - cnt);
+                                    line = lines[i];
+                                    tag = line.Substring(j + 1, cnt);
+                                }
+                                else
+                                {
+                                    lines[i] = line.Substring(0, j + cnt) + ">" + line.Substring(j + cnt + 1, line.Length - 1 - j - cnt);
+                                    line = lines[i];
+                                    tag = line.Substring(j + 1, cnt-1);
+                                }
+                                
                                 brackets.Pop();
                                 bracketsLocation.Pop();
-                                line = lines[i];
+                                
                                 Console.WriteLine("Adding a closing bracket at the end of line " + i);
+                                errors.Enqueue("Adding a closing bracket at the end of line " + i);
                                 numberOfErrors++;
-                                string tag = line.Substring(j + 1, cnt-1);  //Was a mistake
+                                 //Was a mistake
                                
                                 tags.Push(tag);
                                 int[] tagLocation = new int[3];
@@ -200,6 +219,7 @@ namespace ConsoleApp2
 
 
                                 Console.WriteLine("The bracket in the line " + arr[0] + " and the subscript " + arr[2] + " is missing its opening bracket");
+                                errors.Enqueue("The bracket in the line " + arr[0] + " and the subscript " + arr[2] + " is missing its opening bracket");
                                 numberOfErrors++;
                             }
                         }
@@ -208,6 +228,7 @@ namespace ConsoleApp2
                             j--;
                             //missingOpenBrackets = true;
                             Console.WriteLine("The bracket in the line " + i+1 + " is missing its opening bracket");
+                            errors.Enqueue("The bracket in the line " + i + 1 + " is missing its opening bracket");
                             numberOfErrors++;
                             while (Regex.IsMatch(line[j].ToString(), "[a-z]", RegexOptions.IgnoreCase ) && j>0 && line[j] != ' '){
                                 j--;
@@ -238,6 +259,7 @@ namespace ConsoleApp2
                     tags.Pop();
                     tagsLocation.Pop();
                     Console.WriteLine("The tag " + tempTag + " in the line " + (int)(tempLocation[0]) + " and starting from " + (int)(tempLocation[1]) + " with length of " + (int)(tempLocation[2]) + " has its end-tag missing"); //Users missing
+                    errors.Enqueue("The tag " + tempTag + " in the line " + (int)(tempLocation[0]) + " and starting from " + (int)(tempLocation[1]) + " with length of " + (int)(tempLocation[2]) + " has its end-tag missing");
                     lines[lastEndTagFound] += " </" + tempTag + ">";        //MODIFIED REEEEEEEEEEEEEEEEEEEEEEEEEEEE
                     numberOfErrors++;
                 }
@@ -256,8 +278,15 @@ namespace ConsoleApp2
         static void Main(string[] args)
         {
             int x = 0;
-            validator(ref x);       
+            Queue errors = new Queue();
+            validator(ref x,ref errors);
             Console.WriteLine("Number of Errors: " + x);
+            while(errors.Count != 0)
+            {
+                Console.WriteLine(errors.Peek());
+                errors.Dequeue();
+            }
+            
         }
     }
 }
