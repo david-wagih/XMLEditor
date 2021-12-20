@@ -9,7 +9,7 @@
     mc:Ignorable="d">
     <Grid
         Width="800"
-        Height="900"
+        Height="687"
         HorizontalAlignment="Center"
         VerticalAlignment="Center">
         <Grid.RowDefinitions>

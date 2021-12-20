@@ -92,9 +92,12 @@ namespace XMLEditor
         {
             StreamReader sr = new StreamReader(path);
             tree.insertFile(sr);
-            ConvertToJSON j = new ConvertToJSON("jsonsample", 0); // remaining is where to get the output :D
-            j.Convert(tree.getTreeRoot(), tree.getTreeRoot());
-               
+            StringBuilder sb = new StringBuilder();
+            ConvertToJSON j = new ConvertToJSON(sb, 0); // remaining is where to get the output :D
+            j.Convert(tree.getTreeRoot());
+            outputField.Text = sb.ToString();
+
+
         }
 
         // this buttin is to Compress the XML file size
