@@ -121,6 +121,8 @@ namespace XMLEditor
 
 
         
+
+        // here needs some improvement
         
         // this button is to format and add indentation for the XML file
         private void Format_Click(object sender, RoutedEventArgs e)
@@ -151,8 +153,6 @@ namespace XMLEditor
 
 
 
-
-
         // this button is for converting the XML into JSON
         private void JSON_Click(object sender, RoutedEventArgs e)
         {
@@ -163,11 +163,7 @@ namespace XMLEditor
             ConvertToJSON j = new ConvertToJSON(sb, 0); // remaining is where to get the output :D
             j.Convert(tree.getTreeRoot());
             outputField.Text = sb.ToString();
-
-
         }
-
-
 
 
 

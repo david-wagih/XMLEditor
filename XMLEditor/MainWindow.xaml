@@ -9,7 +9,7 @@
     mc:Ignorable="d">
     <Grid
         Width="800"
-        Height="672"
+        Height="800"
         HorizontalAlignment="Center"
         VerticalAlignment="Center">
         <Grid.RowDefinitions>
@@ -21,13 +21,11 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="398" />
-            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="2" />
             <ColumnDefinition Width="400" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel
-            Grid.Row="0"
-            HorizontalAlignment="Center">
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center">
             <Label FontWeight="Bold">Choose your XML file</Label>
             <Button
                 Width="100px"
@@ -37,9 +35,7 @@
                 Browse
             </Button>
         </StackPanel>
-        <StackPanel
-            Grid.Row="1"
-            HorizontalAlignment="Center">
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center">
             <Label FontWeight="Bold">Detect and Correct Errors</Label>
             <Button
                 Width="100"
@@ -49,9 +45,7 @@
                 Fix
             </Button>
         </StackPanel>
-        <StackPanel
-            Grid.Row="2"
-            HorizontalAlignment="Center">
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center">
             <Label FontWeight="Bold">Prettier Format</Label>
             <Button
                 Width="100"
@@ -100,9 +94,7 @@
                 Decompress
             </Button>
         </StackPanel>
-        <StackPanel
-            Grid.Row="3"
-            HorizontalAlignment="Center">
+        <StackPanel Grid.Row="3" HorizontalAlignment="Center">
             <Label FontWeight="Bold">Minify your file</Label>
             <Button
                 Width="100px"
@@ -125,9 +117,7 @@
                 Save
             </Button>
         </StackPanel>
-        <StackPanel
-            Grid.Row="4"
-            HorizontalAlignment="Center">
+        <StackPanel Grid.Row="4" HorizontalAlignment="Center">
             <Label FontWeight="Bold">Input File</Label>
             <TextBox
                 x:Name="inputField"
