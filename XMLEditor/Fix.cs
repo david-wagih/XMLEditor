@@ -125,6 +125,8 @@ namespace XMLEditor
                                             lines[tempLocation[0]] += " <" + tag + ">";     //MODIFIED REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
                                             numberOfErrors++;
                                             missingOpeningTags = true;
+                                            errors.Enqueue("The tag " + tag + " in the line " + i + " and starting from " + (int)(j - cnt + 1) + " with length of " + (int)(cnt - 2) + " has its open-tag missing");
+
                                             tags.Push(tempTag);
                                             tagsLocation.Push(tempLocation);
                                         }
