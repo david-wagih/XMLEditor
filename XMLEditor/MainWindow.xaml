@@ -4,8 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="1000"
-    Height="1000"
+    WindowState="Maximized"
     mc:Ignorable="d">
     <Grid
         Width="800"
@@ -124,6 +123,7 @@
                 Width="320"
                 Height="572"
                 HorizontalScrollBarVisibility="Auto"
+                IsReadOnly="True"
                 VerticalScrollBarVisibility="Auto" />
         </StackPanel>
         <StackPanel
@@ -136,12 +136,14 @@
                 Width="320"
                 Height="100"
                 HorizontalScrollBarVisibility="Auto"
+                IsReadOnly="True"
                 VerticalScrollBarVisibility="Auto" />
             <TextBox
                 x:Name="outputField"
                 Width="320"
                 Height="472"
                 HorizontalScrollBarVisibility="Auto"
+                IsReadOnly="True"
                 VerticalScrollBarVisibility="Auto" />
         </StackPanel>
     </Grid>

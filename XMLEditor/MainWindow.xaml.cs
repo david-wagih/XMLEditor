@@ -39,6 +39,7 @@ namespace XMLEditor
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         // this method is for choosing the XML file from your computer to perform operations on it
