@@ -12,13 +12,13 @@ namespace XML_Editor
     public class FormatXml
     {
         /* class members */
-        public string XmlFileName;
-        public bool firstTime; 
-
+       // public string XmlFileName;
+        public bool firstTime;
+        public StringBuilder sb;
         /* constructor */
-        public FormatXml(string file_name,bool first_time)  
+        public FormatXml(StringBuilder s,bool first_time)  
         {
-            XmlFileName = file_name;
+            sb = s;
             firstTime = first_time;
         }
 
@@ -30,31 +30,35 @@ namespace XML_Editor
             /* if it is the 1st time or Not to use format */
             if (firstTime == false)    
             {
-                StreamWriter sw = new StreamWriter(XmlFileName, false); /* to link with XmlFile directory to write to & append data to the file or overwrite the file */
+                //StreamWriter sw = new StreamWriter(XmlFileName, false); /* to link with XmlFile directory to write to & append data to the file or overwrite the file */
                 if (append == true)    /* append data to the file if true */
                 {
-                    sw.WriteLine(str); /* printy data with new line */
-                    sw.Close();
+                    //  sw.WriteLine(str); /* printy data with new line */
+                    //  sw.Close();
+                    sb.Append(str + '\n'); 
                 }
                 else                   /* overwrite the file if false */
                 {
-                    sw.Write(str);    /* print data without new line */
-                    sw.Close();
+                    //   sw.Write(str);    /* print data without new line */
+                    // sw.Close();
+                    sb.Append(str );
                 }
                 firstTime = true;
             }
             else 
             {
-                StreamWriter sw = new StreamWriter(XmlFileName, true); /* to link with XmlFile directory to write to & append data to the file or overwrite the file */
+               // StreamWriter sw = new StreamWriter(XmlFileName, true); /* to link with XmlFile directory to write to & append data to the file or overwrite the file */
                 if (append == true)    /* append data to the file if true */
                 {
-                    sw.WriteLine(str); /* printy data with new line */
-                    sw.Close();
+                    // sw.WriteLine(str); /* printy data with new line */
+                    //  sw.Close();
+                    sb.Append(str + '\n');
                 }
                 else                   /* overwrite the file if false */
                 {
-                    sw.Write(str);     /* print data without new line */
-                    sw.Close();
+                    //  sw.Write(str);     /* print data without new line */
+                    //  sw.Close();
+                    sb.Append(str);
                 }
             }
         }

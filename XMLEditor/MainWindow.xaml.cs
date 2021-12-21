@@ -127,26 +127,15 @@ namespace XMLEditor
         // this button is to format and add indentation for the XML file
         private void Format_Click(object sender, RoutedEventArgs e)
         {
-            // this new file to save the output of the format function to not overwrite the main file
-            string newtextFilePath = directoryName + @"\output.txt";
-            using (FileStream fs = File.Create(newtextFilePath))
-            {
-
-            }
-            FormatXml xmlfile = new FormatXml(newtextFilePath, false);
+            // creating the tree
+            StreamReader sr = new StreamReader(path);
             Tree xml_tree = new Tree();
-            using (StreamReader reader2 = new StreamReader(path))
-            {
-                xml_tree.insertFile(reader2);
-                reader2.Close();
-            }
+            xml_tree.insertFile(sr);
+            //format using tree 
+            StringBuilder sb = new StringBuilder();
+            FormatXml xmlfile = new FormatXml(sb, false);
             xmlfile.format(xml_tree.getTreeRoot());
-            using(StreamReader reader3 = new StreamReader(xmlfile.XmlFileName))
-            {
-                var filecontent = reader3.ReadToEnd();
-                outputField.Text = filecontent;
-                reader3.Close();
-            }
+            outputField.Text = sb.ToString();
         }
 
 
@@ -156,9 +145,11 @@ namespace XMLEditor
         // this button is for converting the XML into JSON
         private void JSON_Click(object sender, RoutedEventArgs e)
         {
+            // creating the tree
             StreamReader sr = new StreamReader(path);
             Tree tree = new Tree();
             tree.insertFile(sr);
+            //convert to json using tree
             StringBuilder sb = new StringBuilder();
             ConvertToJSON j = new ConvertToJSON(sb, 0); // remaining is where to get the output :D
             j.Convert(tree.getTreeRoot());
