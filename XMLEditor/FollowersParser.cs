@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -23,6 +23,7 @@ namespace ConsoleApp2
             string text = System.IO.File.ReadAllText(@"D:\Engineering\Senior 1\Data Structures and Algorithms\Trials\Text.txt"); //file directory, DAVIIIIID
             bool insideUser = false;
             bool userIdFound = false;
+            bool hasEdges = false;
             string userId = "";
             for (int i = 0; i < text.Length; i++)
             {
@@ -55,6 +56,13 @@ namespace ConsoleApp2
                                 {
                                     insideUser = false;
                                     userIdFound = false;
+
+                                    if (!hasEdges)
+                                    {
+                                        follower[edgeCounter] = new Tuple<int, int>(-1, Int32.Parse(userId));
+                                        edgeCounter++;
+                                    }
+                                    hasEdges = false;
                                 }
                             }
                         }
@@ -81,6 +89,7 @@ namespace ConsoleApp2
                                 //Console.WriteLine(id + "," + userId);
                                 follower[edgeCounter] = new Tuple<int, int>(Int32.Parse(id), Int32.Parse(userId));
                                 edgeCounter++;
+                                hasEdges = true;
                             }
                             //Console.WriteLine(id); //Debugging
 
@@ -111,5 +120,3 @@ namespace ConsoleApp2
         }
     }
 }
-
-
