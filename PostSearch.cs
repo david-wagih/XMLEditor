@@ -106,7 +106,7 @@ namespace postSearch
             }
 
         }
-        static void Main(string[] args)
+       /* static void Main(string[] args)
         {
             string word = "solar_energy";
             //String word = "Lorem";
@@ -114,6 +114,6 @@ namespace postSearch
             post_search(word, func1);
 
 
-        }
+        }*/
     }
 }
