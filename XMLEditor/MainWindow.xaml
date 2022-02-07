@@ -141,5 +141,6 @@
                 IsReadOnly="True"
                 VerticalScrollBarVisibility="Auto" />
         </StackPanel>
+        <Button Grid.Column="1" Content="Visualize" HorizontalAlignment="Left" Margin="260,21,0,0" Grid.Row="3" VerticalAlignment="Top" Click="graph_Click"/>
     </Grid>
 </Window>

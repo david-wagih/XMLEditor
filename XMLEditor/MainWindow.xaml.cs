@@ -18,6 +18,9 @@ using System.IO;
 using XML_Editor;
 using System.Collections;
 using System.Reflection;
+using Microsoft.Msagl.Drawing;
+using Microsoft.Msagl.Layout.MDS;
+using Microsoft.Msagl.WpfGraphControl;
 
 namespace XMLEditor
 {
@@ -33,6 +36,8 @@ namespace XMLEditor
         string outputEncoding = null;
         BitArray inputDecoding = null;
         HuffmanTree huffmanTree = new HuffmanTree();
+        GraphViewer graphViewer = new GraphViewer();
+        DockPanel graphViewerPanel = new DockPanel();
 
 
         // the main constructor
@@ -118,13 +123,61 @@ namespace XMLEditor
             }
         }
 
+        private void graph_Click(object sender, RoutedEventArgs e)
+        {
+            /*Graph graph = new Graph();
+                           graph.LayoutAlgorithmSettings=new MdsLayoutSettings();
+             graph.AddNode("1");
+             graph.AddNode("2");
+             graph.AddNode("3");
+                          graph.AddEdge("1", "2");
+                           graph.AddEdge("1", "3");
+                         graphViewer.Graph = graph;*/
+
+            System.Windows.Forms.Form form = new System.Windows.Forms.Form();
+            //create a viewer object 
+            Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
+            //create a graph object 
+            Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph("graph");
+
+            //create the graph content 
+            
+            Tuple<int, int>[] hamoksha = FollowersParser.followers(path);
+
+            for (int i = 0; i < hamoksha.Length; i++)
+            {
+                if (hamoksha[i] != null)
+                {
+                    if (hamoksha[i].Item1 != -1)
+                    {
+                        graph.AddEdge(hamoksha[i].Item1.ToString(), hamoksha[i].Item2.ToString());
+                    }
+                    else
+                    {
+                        graph.AddNode(hamoksha[i].Item2.ToString());
+                    }
+                    //Console.WriteLine(hamoksha[i].Item1.ToString() + " " + hamoksha[i].Item2.ToString()); //prints elements 
+                }
+            }
+            //graph.AddEdge("1", "2");
+            //graph.AddEdge("1", "3");
+            //graph.AddEdge("2", "3");
+            //bind the graph to the viewer 
+            viewer.Graph = graph;
+            //associate the viewer with the form 
+            form.SuspendLayout();
+            viewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            form.Controls.Add(viewer);
+            form.ResumeLayout();
+            //show the form 
+            form.ShowDialog();
+        }
 
 
 
-        
 
         // here needs some improvement
-        
+
         // this button is to format and add indentation for the XML file
         private void Format_Click(object sender, RoutedEventArgs e)
         {
@@ -152,7 +205,7 @@ namespace XMLEditor
             tree.insertFile(sr);
             //convert to json using tree
             StringBuilder sb = new StringBuilder();
-            ConvertToJSON j = new ConvertToJSON(sb, 0); // remaining is where to get the output :D
+            ConvertToJSON j = new ConvertToJSON(sb, 0); 
             j.Convert(tree.getTreeRoot());
             outputField.Text = sb.ToString();
         }
