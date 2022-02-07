@@ -133,15 +133,35 @@ namespace XMLEditor
                           graph.AddEdge("1", "2");
                            graph.AddEdge("1", "3");
                          graphViewer.Graph = graph;*/
+
             System.Windows.Forms.Form form = new System.Windows.Forms.Form();
             //create a viewer object 
             Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
             //create a graph object 
             Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph("graph");
+
             //create the graph content 
-            graph.AddEdge("1", "2");
-            graph.AddEdge("1", "3");
-            graph.AddEdge("2", "3");
+            
+            Tuple<int, int>[] hamoksha = FollowersParser.followers();
+
+            for (int i = 0; i < hamoksha.Length; i++)
+            {
+                if (hamoksha[i] != null)
+                {
+                    if (hamoksha[i].Item1 != -1)
+                    {
+                        graph.AddEdge(hamoksha[i].Item1.ToString(), hamoksha[i].Item2.ToString());
+                    }
+                    else
+                    {
+                        graph.AddNode(hamoksha[i].Item2.ToString());
+                    }
+                    //Console.WriteLine(hamoksha[i].Item1.ToString() + " " + hamoksha[i].Item2.ToString()); //prints elements 
+                }
+            }
+            //graph.AddEdge("1", "2");
+            //graph.AddEdge("1", "3");
+            //graph.AddEdge("2", "3");
             //bind the graph to the viewer 
             viewer.Graph = graph;
             //associate the viewer with the form 
@@ -185,7 +205,7 @@ namespace XMLEditor
             tree.insertFile(sr);
             //convert to json using tree
             StringBuilder sb = new StringBuilder();
-            ConvertToJSON j = new ConvertToJSON(sb, 0); // remaining is where to get the output :D
+            ConvertToJSON j = new ConvertToJSON(sb, 0); 
             j.Convert(tree.getTreeRoot());
             outputField.Text = sb.ToString();
         }

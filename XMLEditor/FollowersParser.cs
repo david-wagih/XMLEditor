@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Text;
 
-namespace ConsoleApp2
+namespace XMLEditor
 {
    
     class FollowersParser
     {
-        static Tuple<int,int>[] followers()
+        public static Tuple<int,int>[] followers()
         {
             
             int edgeCounter = 0;
@@ -17,10 +17,10 @@ namespace ConsoleApp2
             IDictionary<string, string> idToName = new Dictionary<string, string>();
 
             Tuple<int, int>[] follower = new Tuple<int, int>[20]; //max number of edges
-            
-            
 
-            string text = System.IO.File.ReadAllText(@"D:\Engineering\Senior 1\Data Structures and Algorithms\Trials\Text.txt"); //file directory, DAVIIIIID
+
+            string text = System.IO.File.ReadAllText(@"C:\Users\Marina Ehab\sample.xml");
+            //string text = System.IO.File.ReadAllText(@"D:\Engineering\Senior 1\Data Structures and Algorithms\Trials\Text.txt"); //file directory, DAVIIIIID
             bool insideUser = false;
             bool userIdFound = false;
             bool hasEdges = false;
@@ -106,7 +106,7 @@ namespace ConsoleApp2
         }
 
 
-        static void Main(string[] args)
+       /* static void Main(string[] args)
         {
 
             Tuple<int, int>[]  hamoksha = followers();
@@ -117,6 +117,6 @@ namespace ConsoleApp2
                 Console.WriteLine(hamoksha[i].Item1.ToString() + " " + hamoksha[i].Item2.ToString()); //prints elements 
                 }
             }
-        }
+        }*/
     }
 }
