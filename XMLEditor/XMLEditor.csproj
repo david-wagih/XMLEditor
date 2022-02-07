@@ -13,4 +13,9 @@
     <Content Include="icon.ico" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutomaticGraphLayout.WpfGraphControl" Version="1.1.12" />
+    <PackageReference Include="OpenSoftware.DgmlBuilder" Version="2.0.0" />
+  </ItemGroup>
+
 </Project>
