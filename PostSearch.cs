@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text;
 
@@ -30,10 +30,10 @@ namespace postSearch
                 Line[size++] = line;
             }
             //Traverse the lines
-            for (int j = 0; j < size; j++)
+            if (x == '1')
             {
                 //for word search in posts
-                if (x == '1')
+                for (int j = 0; j < size; j++)
                 {
                     //Traverse till we find body of the post
                     if (Line[j].Contains("<body>"))
@@ -61,10 +61,14 @@ namespace postSearch
                         }
                         FoundWord = false;
                     }
-                }
-                //topic search
-                else if (x == '2')
+                }   
+            }
+            //topic search
+            else if (x == '2')
+            {
+                for (int j = 0; j < size; j++)
                 {
+
                     if (Line[j].Contains("<body>"))
                     {
 
@@ -98,18 +102,18 @@ namespace postSearch
                     }
                 }
 
-
             }
+         
             if (first == false)
             {
                 Console.Write("Not Found");
             }
 
         }
-       /* static void Main(string[] args)
+        /*static void Main(string[] args)
         {
-            string word = "solar_energy";
-            //String word = "Lorem";
+            //string word = "solar_energy";
+            String word = "Lorem";
             char func1 = search_operation();
             post_search(word, func1);
 
