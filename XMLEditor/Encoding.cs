@@ -1,175 +1,123 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using System.Collections;
-using System.Diagnostics;
-namespace XMLEditor
+using System.Text;
+
+
+
+
+namespace postSearch
 {
-
-     public class Node1
+    class Program
     {
-        public char Symbol { get; set; }
-        public int Frequency { get; set; }
-        public Node1 Right { get; set; }
-        public Node1 Left { get; set; }
-
-        public List<bool> Traverse(char symbol, List<bool> data)
+        static char search_operation()
         {
-            // Leaf
-            if (Right == null && Left == null)
-            {
-                if (symbol.Equals(this.Symbol))
-                {
-                    return data;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                List<bool> left = null;
-                List<bool> right = null;
-
-                if (Left != null)
-                {
-                    List<bool> leftPath = new List<bool>();
-                    leftPath.AddRange(data);
-                    leftPath.Add(false);
-
-                    left = Left.Traverse(symbol, leftPath);
-                }
-
-                if (Right != null)
-                {
-                    List<bool> rightPath = new List<bool>();
-                    rightPath.AddRange(data);
-                    rightPath.Add(true);
-                    right = Right.Traverse(symbol, rightPath);
-                }
-
-                if (left != null)
-                {
-                    return left;
-                }
-                else
-                {
-                    return right;
-                }
-            }
+            char op;
+            Console.Write("Please,enter 1: if you wanna search based on post word. \n 2: if you wanna search based on the topic.");
+            op = Convert.ToChar(Console.ReadLine());
+            return op;
         }
-    }
-
-
-    public class HuffmanTree
+        static void post_search(string word, char x)
         {
-            private List<Node1> Node1s = new List<Node1>();
-            public Node1 Root { get; set; }
-            public Dictionary<char, int> Frequencies = new Dictionary<char, int>();
+            bool FoundWord = false;
+            bool FoundTopic = false;
+            bool first = false;
+            string[] Line = new string[500];
+            int size = 0;
 
-            public void Build(string source)
+            //save all the text in string array
+            foreach (string line in File.ReadLines(@"C:\Users\Mayar El-Mallah\Downloads\sample.xml"))
             {
-                for (int i = 0; i < source.Length; i++)
-                {
-                    if (!Frequencies.ContainsKey(source[i]))
-                    {
-                        Frequencies.Add(source[i], 0);
-                    }
-
-                    Frequencies[source[i]]++;
-                }
-
-                foreach (KeyValuePair<char, int> symbol in Frequencies)
-                {
-                    Node1s.Add(new Node1() { Symbol = symbol.Key, Frequency = symbol.Value });
-                }
-
-                while (Node1s.Count > 1)
-                {
-                    List<Node1> orderedNode1s = Node1s.OrderBy(Node1 => Node1.Frequency).ToList<Node1>();
-
-                    if (orderedNode1s.Count >= 2)
-                    {
-                        // Take first two items
-                        List<Node1> taken = orderedNode1s.Take(2).ToList<Node1>();
-
-                        // Create a parent Node1 by combining the frequencies
-                        Node1 parent = new Node1()
-                        {
-                            Symbol = '*',
-                            Frequency = taken[0].Frequency + taken[1].Frequency,
-                            Left = taken[0],
-                            Right = taken[1]
-                        };
-
-                        Node1s.Remove(taken[0]);
-                        Node1s.Remove(taken[1]);
-                        Node1s.Add(parent);
-                    }
-
-                    this.Root = Node1s.FirstOrDefault();
-
-                }
-
+                Line[size++] = line;
             }
-
-            public BitArray Encode(string source)
+            //Traverse the lines
+            if (x == '1')
             {
-                List<bool> encodedSource = new List<bool>();
-
-                for (int i = 0; i < source.Length; i++)
+                //for word search in posts
+                for (int j = 0; j < size; j++)
                 {
-                    List<bool> encodedSymbol = this.Root.Traverse(source[i], new List<bool>());
-                    encodedSource.AddRange(encodedSymbol);
-                }
-
-                BitArray bits = new BitArray(encodedSource.ToArray());
-
-                return bits;
-            }
-
-            public string Decode(BitArray bits)
-            {
-                Node1 current = this.Root;
-                string decoded = "";
-
-                foreach (bool bit in bits)
-                {
-                    if (bit)
+                    //Traverse till we find body of the post
+                    if (Line[j].Contains("<body>"))
                     {
-                        if (current.Right != null)
+                        for (int i = j + 1; !Line[i].Contains("</body>"); i++)
                         {
-                            current = current.Right;
+                            if (Line[i].Contains(word))
+                            {
+                                FoundWord = true;
+                                first = true;
+                                break;
+
+                            }
+
+                        }
+
+                    }
+                    if (FoundWord == true)
+                    {
+                        for (int i = j + 1; !(Line[i].Contains("</body>")); i++)
+                        {
+                            Console.WriteLine(Line[i]);
+                            Console.WriteLine();
+
+                        }
+                        FoundWord = false;
+                    }
+                }   
+            }
+            //topic search
+            else if (x == '2')
+            {
+                for (int j = 0; j < size; j++)
+                {
+
+                    if (Line[j].Contains("<body>"))
+                    {
+
+                        for (int i = j + 1; !Line[i].Contains("</topic>"); i++)
+                        {
+
+                            if (Line[i].Contains("<topic>"))
+                            {
+                                if (Line[i + 1].Contains(word))
+                                {
+                                    FoundTopic = true;
+                                    first = true;
+                                    break;
+                                }
+                            }
                         }
                     }
-                    else
+                    if (FoundTopic == true)
                     {
-                        if (current.Left != null)
-                        {
-                            current = current.Left;
-                        }
-                    }
 
-                    if (IsLeaf(current))
-                    {
-                        decoded += current.Symbol;
-                        current = this.Root;
+                        for (int i = j + 1; !(Line[i].Contains("</body>")); i++)
+                        {
+
+                            Console.WriteLine(Line[i]);
+                            Console.WriteLine();
+
+                        }
+
+                        FoundTopic = false;
+
                     }
                 }
 
-                return decoded;
             }
-
-            public bool IsLeaf(Node1 Node1)
+         
+            if (first == false)
             {
-                return (Node1.Left == null && Node1.Right == null);
+                Console.Write("Not Found");
             }
 
         }
-    
-    }
+        /*static void Main(string[] args)
+        {
+            //string word = "solar_energy";
+            String word = "Lorem";
+            char func1 = search_operation();
+            post_search(word, func1);
 
+
+        }*/
+    }
+}
