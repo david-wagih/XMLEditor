@@ -9,7 +9,7 @@ namespace XMLEditor
    
     class FollowersParser
     {
-        public static Tuple<int,int>[] followers()
+        public static Tuple<int,int>[] followers(String path)
         {
             
             int edgeCounter = 0;
@@ -19,7 +19,7 @@ namespace XMLEditor
             Tuple<int, int>[] follower = new Tuple<int, int>[20]; //max number of edges
 
 
-            string text = System.IO.File.ReadAllText(@"C:\Users\Marina Ehab\sample.xml");
+            string text = System.IO.File.ReadAllText(path);
             //string text = System.IO.File.ReadAllText(@"D:\Engineering\Senior 1\Data Structures and Algorithms\Trials\Text.txt"); //file directory, DAVIIIIID
             bool insideUser = false;
             bool userIdFound = false;

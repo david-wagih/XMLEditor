@@ -142,7 +142,7 @@ namespace XMLEditor
 
             //create the graph content 
             
-            Tuple<int, int>[] hamoksha = FollowersParser.followers();
+            Tuple<int, int>[] hamoksha = FollowersParser.followers(path);
 
             for (int i = 0; i < hamoksha.Length; i++)
             {
