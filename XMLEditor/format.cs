@@ -12,7 +12,6 @@ namespace XML_Editor
     public class FormatXml
     {
         /* class members */
-       // public string XmlFileName;
         public bool firstTime;
         public StringBuilder sb;
         /* constructor */
@@ -23,10 +22,8 @@ namespace XML_Editor
         }
 
         /* class methods */
-        public void writeOut(string str,bool append) /* to write in the output */
+        public void writeOut(string str,bool append) 
         {
-
-
             /* if it is the 1st time or Not to use format */
             if (firstTime == false)    
             {
@@ -69,7 +66,7 @@ namespace XML_Editor
             List<Node> children = new List<Node>();
             children = root.getChildren();
 
-            /* to avoid errors of empty node */
+           
             if (r_node == null)
             {
                 return;
