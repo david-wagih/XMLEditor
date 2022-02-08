@@ -6,13 +6,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     WindowState="Maximized"
     mc:Ignorable="d">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="12*" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="700" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -111,18 +112,45 @@
                 Save
             </Button>
         </StackPanel>
-        <StackPanel Grid.Row="4" HorizontalAlignment="Center">
-            <Label FontWeight="Bold">Input File</Label>
+        <StackPanel
+            Margin="0 15"
+            Grid.Row="4"
+            Grid.Column="1"
+            HorizontalAlignment="Center">
+            <Button
+                Width="100px"
+                HorizontalAlignment="Center"
+                Click="graph_Click"
+                Cursor="Hand">
+                Visualize
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Margin="0 15"
+            Grid.Row="4"
+            Grid.Column="0"
+            HorizontalAlignment="Center">
+            <Button
+                Width="100px"
+                HorizontalAlignment="Center"
+                Click="Search_Click"
+                Cursor="Hand">
+                Search
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.Row="5" HorizontalAlignment="Center" >
+            <Label  FontWeight="Bold">Input File</Label>
             <TextBox
                 x:Name="inputField"
                 Width="320"
-                Height="572"
+                Height="500"
                 HorizontalScrollBarVisibility="Auto"
                 IsReadOnly="True"
                 VerticalScrollBarVisibility="Auto" />
         </StackPanel>
         <StackPanel
-            Grid.Row="4"
+            
+            Grid.Row="5"
             Grid.Column="2"
             HorizontalAlignment="Center">
             <Label x:Name="outputFieldLabel" FontWeight="Bold">Output File</Label>
@@ -136,11 +164,10 @@
             <TextBox
                 x:Name="outputField"
                 Width="320"
-                Height="472"
+                Height="400"
                 HorizontalScrollBarVisibility="Auto"
                 IsReadOnly="True"
                 VerticalScrollBarVisibility="Auto" />
         </StackPanel>
-        <Button Grid.Column="1" Content="Visualize" HorizontalAlignment="Left" Margin="260,23,0,0" Grid.Row="3" VerticalAlignment="Top" Click="graph_Click"/>
     </Grid>
 </Window>

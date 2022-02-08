@@ -3,14 +3,14 @@ using System.IO;
 using System.Text;
 
 
-namespace postSearch
+namespace XMLEditor
 {
     class Program
     {
         static char search_operation()
         {
             char op;
-            Console.Write("Please,enter 1: if you wanna search based on post word. \n 2: if you wanna search based on the topic.");
+            Console.Write("Please,enter 1: if you wanna search based on post word. \n 2: if you wanna search based on the topic."); // needed to be viewed for user 
             op = Convert.ToChar(Console.ReadLine());
             return op;
         }
@@ -23,7 +23,7 @@ namespace postSearch
             int size = 0;
 
             //save all the text in string array
-            foreach (string line in File.ReadLines(@"C:\Users\Mayar El-Mallah\Downloads\sample.xml"))
+            foreach (string line in File.ReadLines(@"C:\Users\Mayar El-Mallah\Downloads\sample.xml")) // here replace it with the path of file
             {
                 Line[size++] = line;
             }

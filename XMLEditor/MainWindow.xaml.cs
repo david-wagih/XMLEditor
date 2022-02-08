@@ -250,12 +250,17 @@ namespace XMLEditor
 
 
 
-
         // this method is responsible for removing the spaces and indentation to minify the file.
         private void Minify_Click(object sender, RoutedEventArgs e)
         {
             outputField.Text = Minifying.CompactWhitespaces(Content);
         }
 
+
+        // this method for handling the post search
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            // here the implementaion and calling for the method in the post Search.cs file
+        }
     }
 }
